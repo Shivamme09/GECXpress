@@ -2,7 +2,7 @@
 ini_set('error_reporting', 0);
 ini_set('display_errors', 0);
 
-if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
+if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]) && isset($_SESSION["admin_type"]))
 {
 
 ?>
@@ -36,7 +36,11 @@ if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
         <a href="#">Register Faculty</a>
         <a href="#">Register Student</a>
         <a href="../Logout.php">Logout</a>-->
-        
+<!--<div class="" style="">
+    <div class="jumbotron" style="background-color: #3A3A3A;color: #fff;">
+        <h2 class="text-center" style="font-size: 50px;">Dashboard</h2>
+    </div>
+</div>-->
         <div class="wrapper row3 center"  style="margin-top: 50px;margin-bottom: 50px;">
         <main class="hoc container clear"> 
           <!-- main body -->
@@ -65,36 +69,83 @@ if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
               
             </article>
               </a>
-              <a href="Admin_registration.php" style="color:#000;text-decoration: none;">
-            <article class="one_third mar_bot"><i class="icon fa fa-user-plus"></i>
-              <h4 class="font-x1 uppercase"><p style="color:#E84C3D;text-decoration:none;font-size:17px;font-family: Georgia,'Times New Roman', 'Times, serif';">Register Admin</p></h4>
-             
-            </article>
-              </a>
-              <a href="../commingsoon/index.html" style="color:#000;text-decoration: none;">
-            <article class="one_third mar_bot"><i class="icon fa fa-users"></i>
-              <h4 class="font-x1 uppercase"><p style="color:#E84C3D;text-decoration:none;font-size:17px;font-family: Georgia,'Times New Roman', 'Times, serif';">Register Faculty</p></h4>
-             
-            </article>
-              </a>
-              <a href="register_student.php" style="color:#000;text-decoration: none;">
-              <article class="one_third first mar_bot"><i class="icon fa fa-graduation-cap"></i>
-              <h4 class="font-x1 uppercase"><p style="color:#E84C3D;text-decoration:none;font-size:17px;font-family: Georgia,'Times New Roman', 'Times, serif';">Register Student</p></h4>
+              <a href="view_admin.php?admin_type=HOD" style="color:#000;text-decoration: none;">
+              <article class="one_third mar_bot"><i class="icon fa fa-user-secret"></i>
+              <h4 class="font-x1 uppercase"><p style="color:#E84C3D;text-decoration:none;font-size:17px;font-family: Georgia,'Times New Roman', 'Times, serif';">View HOD</p></h4>
               
             </article>
               </a>
+              <a href="view_admin.php?admin_type=Faculty" style="color:#000;text-decoration: none;">
+              <article class="one_third mar_bot"><i class="icon fa fa-users"></i>
+              <h4 class="font-x1 uppercase"><p style="color:#E84C3D;text-decoration:none;font-size:17px;font-family: Georgia,'Times New Roman', 'Times, serif';">View Faculty</p></h4>
+              
+            </article>
+              </a>
+              <a href="view_admin.php?admin_type=Administrative" style="color:#000;text-decoration: none;">
+              <article class="one_third first mar_bot"><i class="icon fa fa-user-md"></i>
+              <h4 class="font-x1 uppercase"><p style="color:#E84C3D;text-decoration:none;font-size:17px;font-family: Georgia,'Times New Roman', 'Times, serif';">View Administrative officers</p></h4>
+              
+            </article>
+              </a>
+              
               <a href="view_student.php" style="color:#000;text-decoration: none;">
             <article class="one_third mar_bot"><i class="icon fa fa-graduation-cap"></i>
               <h4 class="font-x1 uppercase"><p style="color:#E84C3D;text-decoration:none;font-size:17px;font-family: Georgia,'Times New Roman', 'Times, serif';">View Registered student</p></h4>
              
             </article>
               </a>
+              
+              <a href="register_student.php" style="color:#000;text-decoration: none;">
+              <article class="one_third mar_bot"><i class="icon fa fa-graduation-cap"></i>
+              <h4 class="font-x1 uppercase"><p style="color:#E84C3D;text-decoration:none;font-size:17px;font-family: Georgia,'Times New Roman', 'Times, serif';">Register Student</p></h4>
+              
+            </article>
+              </a>
+              <?php if($_SESSION["admin_type"]=='Principal' OR $_SESSION["admin_type"]=='HOD'){ ?>
+              <a href="../commingsoon/index.html" style="color:#000;text-decoration: none;">
+            <article class="one_third first mar_bot"><i class="icon fa fa-users"></i>
+              <h4 class="font-x1 uppercase"><p style="color:#E84C3D;text-decoration:none;font-size:17px;font-family: Georgia,'Times New Roman', 'Times, serif';">Register Faculty</p></h4>
+             
+            </article>
+              </a>              
+              <?php }?>
+              <?php if($_SESSION["admin_type"]=='Principal'){ ?>
+              <a href="Admin_registration.php" style="color:#000;text-decoration: none;">
+            <article class="one_third mar_bot"><i class="icon fa fa-user-plus"></i>
+              <h4 class="font-x1 uppercase"><p style="color:#E84C3D;text-decoration:none;font-size:17px;font-family: Georgia,'Times New Roman', 'Times, serif';">Register Admin</p></h4>
+             
+            </article>
+              </a>
+              <a href="Edit_branch.php" style="color:#000;text-decoration: none;">
+              <article class="one_third mar_bot"><i class="icon fa fa-map-signs"></i>
+              <h4 class="font-x1 uppercase"><p style="color:#E84C3D;text-decoration:none;font-size:17px;font-family: Georgia,'Times New Roman', 'Times, serif';">Edit and delete department</p></h4>
+              
+            </article>
+              </a>
+              <a href="Edit_news_type.php" style="color:#000;text-decoration: none;">
+            <article class="one_third first mar_bot"><i class="icon fa fa-anchor"></i>
+              <h4 class="font-x1 uppercase"><p style="color:#E84C3D;text-decoration:none;font-size:17px;font-family: Georgia,'Times New Roman', 'Times, serif';">Edit and delete news type</p></h4>
+             
+            </article>
+              </a>
+              <?php }?>           
+              <!--<hr style="color: #fff;background-color: #fff;">-->
+              <div class="row"></div>
+              <div style="margin-top:150px;">
+                  <hr>
               <a href="../Logout.php" style="color:#000;text-decoration: none;">
-            <article class="one_third mar_bot"><i class="icon fa fa-sign-out"></i>
+            <article class="two_quarter first mar_bot"><i class="icon fa fa-sign-out"></i>
               <h4 class="font-x1 uppercase"><p style="color:#E84C3D;text-decoration:none;font-size:17px;font-family: Georgia,'Times New Roman', 'Times, serif';">Logout</p></h4>
              
             </article>
               </a>
+              <a href="#" style="color:#000;text-decoration: none;">
+            <article class="two_quarter mar_bot"><i class="icon fa fa-trash-o"></i>
+              <h4 class="font-x1 uppercase"><p style="color:#E84C3D;text-decoration:none;font-size:17px;font-family: Georgia,'Times New Roman', 'Times, serif';">Trash</p></h4>
+             
+            </article>
+              </a>
+              </div>
               
           </div>
           <!-- / main body -->

@@ -8,14 +8,15 @@ if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
  include '.././gecdp.php';
  if(isset($_REQUEST["btnregister"]))
  {
+     $atype= htmlspecialchars($_REQUEST["txtadmintype"],ENT_QUOTES);
      $name= htmlspecialchars($_REQUEST["txtuser"],ENT_QUOTES);
      $pass= md5(htmlspecialchars($_REQUEST["txtpass"],ENT_QUOTES));
      $email= htmlspecialchars($_REQUEST["txtemail"],ENT_QUOTES);
      
      $qry="INSERT INTO admin
-         (admin_name,admin_pass,admin_email)
+         (admin_name,admin_pass,admin_email,admin_type)
          VALUES
-         ('".$name."','".$pass."','".$email."');
+         ('".$name."','".$pass."','".$email."','".$atype."');
              ";
      $result=mysqli_query($con,$qry);
      
@@ -58,22 +59,25 @@ if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
-    <body  style="background-color: #474747;">
-        
-            <br><br>
+    <body>
                <div class="container">
                    
-		<div class="panel panel-default" style="background-color:#eee">
-		<div class="container"><br>
-                    <center style="">
-                        <img src="new_admin.jpg" class="img-circle" alt="Responsive image" ></center>
-                        <h3 class="text-left" style="text-align: center;  " ><strong>  Admin Registration</strong></h3>
-          
-		
-		<h3> </h3>
-		</div><br><br>
+		<div class="panel panel-default">
                 <form class="form-horizontal" method="POST" enctype="multipart/form-data">
-		
+                    <h3 class="text-center">Admin registration</h3>
+                    <hr>
+                <div class="form-group">
+               <label class="control-label col-sm-3" for="user">Admin type:</label>
+               <div class="col-sm-6" >
+                   <select name="txtadmintype" class="form-control" required>
+                           <option value="">Select admin type</option>
+                           <option value="Principal">Principal</option>
+                           <option value="HOD">HOD</option>
+                           <option value="Administrative">Administrative</option>
+                           <option value="Faculty">Faculty</option>
+                       </select>
+               </div>
+               </div>
                <div class="form-group">
                <label class="control-label col-sm-3" for="user">Admin id:</label>
                <div class="col-sm-6" >
@@ -93,7 +97,7 @@ if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
                 </div>
                 </div>
 	        <div class="form-group">
-	      <button class="btn btn-success center-block btn-lg" type="submit" name="btnregister">Login</button>
+	      <button class="btn btn-success center-block btn-lg" type="submit" name="btnregister">Save</button>
 		</div>
                   </form>
 
