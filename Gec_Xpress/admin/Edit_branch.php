@@ -26,7 +26,7 @@ if(isset($_REQUEST["btnsave"])){
             <?php
     }
 }
-if(isset($_REQUEST["branch_id"])){
+if(isset($_REQUEST["branch_id"])&& isset($_REQUEST["false"])=='false'){
     //echo $_REQUEST["branch_id"];
     $qry_b="DELETE FROM branch WHERE bid=".$_REQUEST["branch_id"];
     if(mysqli_query($con, $qry_b))
@@ -45,6 +45,18 @@ if(isset($_REQUEST["branch_id"])){
             alert(res);
         </script>
             <?php
+    }
+}
+if(isset($_REQUEST["branch_id"]) && isset($_REQUEST["trash"]) && isset($_REQUEST["trash"])=='yes'){
+    $qry_h="UPDATE branch SET trash='yes' WHERE bid=".$_REQUEST["branch_id"];
+        //echo $qry_h;
+    if(mysqli_query($con, $qry_h)){
+        //echo "vikash";
+        ?><script>alert('Moved to trash!!');
+                    window.location.href="Edit_branch.php";
+        </script><?php
+    }else{
+        ?><script>alert('Currently there is a problem to delete the news please try again after some time!!');</script><?php
     }
 }
 ?>
@@ -91,13 +103,17 @@ if(isset($_REQUEST["branch_id"])){
     
         <div class="container" style="margin-top: 20px;">
         <?php
-            $qry="SELECT * FROM branch ORDER BY bid";
+        if(isset($_REQUEST["trash"]) && isset($_REQUEST["trash"])=='yes'){
+            $qry="SELECT * FROM branch WHERE trash='yes' ORDER BY bid";
+        }else{
+            $qry="SELECT * FROM branch WHERE trash!='yes' ORDER BY bid";
+        }
             $result= mysqli_query($con, $qry);
             while($row= mysqli_fetch_array($result))
             {
                 ?>                    
 		<div class="alert alert-success alert-dismissable fade in">
-                    <a href="Edit_branch.php?branch_id=<?php echo $row["bid"] ?>" class="close" data-dismiss="alert" area-label="close" title="Remove the branch" onClick='return confirmDelete(this);'>&times</a>
+                    <a href="Edit_branch.php?branch_id=<?php echo $row["bid"] ?>&&trash='yes'" class="close" data-dismiss="alert" area-label="close" title="Remove the branch" onClick='return confirmDelete(this);'>&times</a>
 			<?php echo $row["bname"]; ?>
 		</div>
                 <?php

@@ -1,8 +1,22 @@
-<?php  session_start();
-if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
-{
+<?php
 include './gecdp.php';
-$qry="SELECT * FROM user_registration ORDER BY id";
+if(isset($_REQUEST["trash"]) && isset($_REQUEST["trash"])=='yes'){
+    $qry="SELECT * FROM user_registration WHERE trash='yes' ORDER BY id";
+}else{
+    $qry="SELECT * FROM user_registration WHERE trash!='yes' ORDER BY id";
+}
+if(isset($_REQUEST["trash"]) && isset($_REQUEST["trash"])=='yes' && isset($_REQUEST["rollno"])){
+    $qry_h="UPDATE user_registration SET trash='yes' WHERE rollno=".$_REQUEST["rollno"];
+        //echo $qry_h;
+    if(mysqli_query($con, $qry_h)){
+        //echo "vikash";
+        ?><script>alert('Moved to trash!!');
+                    window.location.href="view_student.php";
+        </script><?php
+    }else{
+        ?><script>alert('Currently there is a problem to delete the news please try again after some time!!');</script><?php
+    }
+}
 $result= mysqli_query($con, $qry);
 ?>
 <!Doctype html>
@@ -35,7 +49,8 @@ $result= mysqli_query($con, $qry);
                         <th>Gender:</th>
                         <th>Mobile No:</th>
                         <th>Address:</th>
-                        <th>Achievements:</th>
+                        <th>Achivements:</th>
+                        <th>Delete:</th>
 <!--                        <th>Update</th>
                         <th>Delete</th>-->
                     </tr>
@@ -44,7 +59,7 @@ $result= mysqli_query($con, $qry);
                     <?php while($row= mysqli_fetch_array($result)){ ?>
                     <tr>
                         <td><?php echo $row["rollno"]; ?></td>
-                        <td><img src=".../studentphoto/<?php echo $row["photo"]; ?>" class="img-responsive"/></td>
+                        <td><img src="../studentphoto/<?php echo $row["photo"]; ?>" class="img-responsive"/></td>
                         <td><?php echo $row["fname"]; ?></td>
                         <td><?php echo $row["lname"]; ?></td>
                         <td><?php echo $row["enrollment"]; ?></td>
@@ -57,6 +72,7 @@ $result= mysqli_query($con, $qry);
                         <td><?php echo $row["mobileno"]; ?></td>
                         <td><?php echo $row["address"]; ?></td>
                         <td><?php echo $row["achive"]; ?></td>
+                        <td><a href="view_student.php?trash='yes'&&rollno=<?php echo $row["rollno"]; ?>">Delete</a></td>
 <!--                        <td class="text-center"><a href="#" style="text-decoration: none;"><span class="glyphicon glyphicon-pencil"></span></a></td>
                         <td class="text-center"><a href="#" style="text-decoration: none;"><span class="glyphicon glyphicon-trash"></span></a></td>-->
                     </tr>
@@ -67,11 +83,3 @@ $result= mysqli_query($con, $qry);
         <?php include './footer.php'; ?>
     </body>
 </html>
-<?php
-
-                    }
-                    else {
-                        header("Location:Admin_login.php");
-                        
-                    }
-?>
