@@ -4,7 +4,7 @@ ini_set('display_errors', 0);
  include './gecdp.php';
 if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
 {
-    if(isset($_REQUEST["status"]) && isset($_REQUEST["feedback_id"]))
+    if(isset($_REQUEST["status"]) && isset($_REQUEST["feedback_id"]) && $_REQUEST["false"]=='false')
     {
         $qry_y="DELETE FROM feedback WHERE feedback_id=".$_REQUEST["feedback_id"];
         $result= mysqli_query($con, $qry_y);
@@ -16,6 +16,18 @@ if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
         {
             ?><script>alert("Currently we are not able to delete the Feedback. Try after some time");</script><?php
         }
+    }
+    if(isset($_REQUEST["status"]) && isset($_REQUEST["status"])=='delete' && isset($_REQUEST["feedback_id"])){
+        $qry_h="UPDATE feedback SET trash='yes' WHERE feedback_id=".$_REQUEST["feedback_id"];
+        //echo $qry_h;
+    if(mysqli_query($con, $qry_h)){
+        //echo "vikash";
+        ?><script>alert('Feedback is moved to trash!!');
+                    window.location.href="Feedback_view.php";
+        </script><?php
+    }else{
+        ?><script>alert('Currently there is a problem to delete the news please try again after some time!!');</script><?php
+    }
     }
     
     
@@ -76,18 +88,14 @@ if(isset($_REQUEST["btnsubmit"]))
             {?>
             <?php }?>
             <?php
-                $qry="SELECT * FROM feedback";
+                if(isset($_REQUEST["trash"])=='yes'){
+                    $qry="SELECT * FROM feedback WHERE trash='yes' ORDER BY added_on";
+                }else{
+                    $qry="SELECT * FROM feedback WHERE trash!='yes' ORDER BY added_on";
+                }
                 $result=mysqli_query($con,$qry);
                 while($row=mysqli_fetch_array($result))
                 {
-//                    echo"<div class='row' style='background-color:#ff0000;padding:10px;margin-top:10px;'>";
-//                    echo "<a href='#'>";
-//                    echo $row["feedback_title"];
-//                    echo "</div>";
-//                    echo"<div class='row' style='background-color:#336699'>";
-//                    echo $row["added_on"];
-//                    echo "</a>";
-//                    echo"</div>";
                     ?>
             <div style="margin-bottom: 50px;">
                 <a href="Single_feedback.php?feedback_id=<?php echo $row["feedback_id"]; ?>" style="text-decoration: none;"><b>

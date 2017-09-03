@@ -2,10 +2,9 @@
 ini_set('error_reporting', 0);
 ini_set('display_errors', 0);
 include './gecdp.php';
-
-if(isset($_REQUEST["status"]) && $_REQUEST["news_id"])
+if(htmlspecialchars($_REQUEST["status"],ENT_QUOTES) && htmlspecialchars($_REQUEST["news_id"],ENT_QUOTES) && htmlspecialchars($_REQUEST["false"]=='false',ENT_QUOTES))
 {
-    $qry_e="DELETE FROM news WHERE news_id=".$_REQUEST["news_id"];
+    $qry_e="DELETE FROM news WHERE news_id=".htmlspecialchars($_REQUEST["news_id"],ENT_QUOTES);
     $result_e= mysqli_query($con, $qry_e);
     if($result_e)
     {
@@ -18,28 +17,42 @@ if(isset($_REQUEST["status"]) && $_REQUEST["news_id"])
         ?><script>alert('Currently there is a problem to delete the news please try again after some time!!');</script><?php
     }
 }
+if(htmlspecialchars($_REQUEST["status"],ENT_QUOTES) && htmlspecialchars($_REQUEST["status"],ENT_QUOTES) === 'delete' && htmlspecialchars($_REQUEST["news_id"],ENT_QUOTES)){
+    $qry_h="UPDATE news SET trash='yes' WHERE news_id=".htmlspecialchars($_REQUEST["news_id"],ENT_QUOTES);
+    //echo $qry_h;
+    echo filter_input(INPUT_POST, "news_id");
+    if(mysqli_query($con, $qry_h)){
+        //echo "vikash";
+        ?><script>alert('News is moved to trash!!');
+                    window.location.href="News_view.php";
+        </script><?php
+    }else{
+        ?><script>alert('Currently there is a problem to delete the news please try again after some time!!');</script><?php
+    }
+}
 
-    if(isset($_REQUEST["btndate"]))
+    if(htmlspecialchars($_REQUEST["btndate"],ENT_QUOTES))
     {
         $start= htmlspecialchars($_REQUEST["txtstart"],ENT_QUOTES);
         $end= htmlspecialchars($_REQUEST["txtend"],ENT_QUOTES);
-        //$qry_s="SELECT * FROM news WHERE added_on BETWEEN ".$start." AND ".$end."";
         $qry_s = "SELECT * FROM news WHERE date(added_on) between '" . $start . "' AND '".$end."'";
 
     }
-    elseif(isset ($_REQUEST["btntype"]))
+    elseif(htmlspecialchars ($_REQUEST["btntype"]))
     {
         $type= htmlspecialchars($_REQUEST["txttype"],ENT_QUOTES);
         $qry_s="SELECT * FROM news WHERE news_type='".$type."' ";
     }
-    elseif (isset ($_REQUEST["btndept"])) {
+    elseif (htmlspecialchars ($_REQUEST["btndept"])) {
         $dept= htmlspecialchars($_REQUEST["txtdept"],ENT_QUOTES);
     $qry_s="SELECT * FROM news WHERE dept_name LIKE '%".$dept."%' ";
+}elseif(htmlspecialchars ($_REQUEST["trash"],ENT_QUOTES) === 'yes'){
+    $qry_s="SELECT * FROM news WHERE trash='yes' ORDER BY added_on";
 }
  else {
-    $qry_s="SELECT * FROM news ORDER BY added_on";
+    $qry_s="SELECT * FROM news WHERE trash!='yes' ORDER BY added_on";
 }
-    
+    //echo $qry_s;
 ?>
 <!DOCTYPE html>
 <html>
@@ -266,4 +279,3 @@ if(isset($_REQUEST["status"]) && $_REQUEST["news_id"])
     </body>
 </html>
 <?php
-?>

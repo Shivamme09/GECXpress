@@ -28,14 +28,6 @@ if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]) && isset($_S
     </head>
     <body>
         <?php include 'header.php'; ?>
-<!--        <a href="Post_news.php">Post Notice</a>
-        <a href="../News_view.php">View News</a>
-        <a href="../Issue_view.php">View Issue</a>
-        <a href="../Feedback_view.php">View Feedback</a>
-        <a href="Admin_registration.php">Register Admin</a>
-        <a href="#">Register Faculty</a>
-        <a href="#">Register Student</a>
-        <a href="../Logout.php">Logout</a>-->
 <!--<div class="" style="">
     <div class="jumbotron" style="background-color: #3A3A3A;color: #fff;">
         <h2 class="text-center" style="font-size: 50px;">Dashboard</h2>
@@ -139,7 +131,7 @@ if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]) && isset($_S
              
             </article>
               </a>
-              <a href="#" style="color:#000;text-decoration: none;">
+                  <a href="trash.php" style="color:#000;text-decoration: none;">
             <article class="two_quarter mar_bot"><i class="icon fa fa-trash-o"></i>
               <h4 class="font-x1 uppercase"><p style="color:#E84C3D;text-decoration:none;font-size:17px;font-family: Georgia,'Times New Roman', 'Times, serif';">Trash</p></h4>
              

@@ -97,7 +97,7 @@ else if(isset($_SESSION["userid"]) && isset($_SESSION["password"]))
             </article>
               </a>
                   <?php }else{ ?>
-                  <a href="#" style="color:#000;pointer-events: none;" title="Delete the issue" >
+                  <a href="Issue_view.php?status=delete && issue_id=<?php echo $row["issue_id"]; ?>" style="color:#000;" title="Delete the issue" >
               
             <article class="one_half first"><i class="icon fa fa-trash-o"></i>
               

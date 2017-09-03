@@ -4,7 +4,7 @@ ini_set('display_errors', 0);
  include './gecdp.php';
 if((isset($_SESSION["userid"]) && isset($_SESSION["password"]))|| (isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"])))
 {
-    if(isset($_REQUEST["status"]) && isset($_REQUEST["issue_id"]))
+    if(isset($_REQUEST["status"]) && isset($_REQUEST["issue_id"]) && $_REQUEST["false"]=='false')
     {
         $qry_m="DELETE FROM issues WHERE issue_id=".$_REQUEST["issue_id"];
         $result_m= mysqli_query($con, $qry_m);
@@ -21,6 +21,15 @@ if((isset($_SESSION["userid"]) && isset($_SESSION["password"]))|| (isset($_SESSI
         {
             ?><script>alert('Currently there is a problem to delete the issue please try agian!!');</script><?php
         }
+    }
+    if(isset($_REQUEST["status"]) && isset($_REQUEST["issue_id"])){
+        $qry_h="UPDATE issues SET trash='yes' WHERE issue_id=".$_REQUEST["issue_id"];
+    if(mysqli_query($con, $qry_h)){
+        //echo "vikash";
+        ?><script>alert('News is moved to trash!!');
+                    window.location.href="Issue_view.php";
+        </script><?php
+    }
     }
     if(isset($_REQUEST["techsubmit"]))
     {
@@ -168,7 +177,14 @@ if((isset($_SESSION["userid"]) && isset($_SESSION["password"]))|| (isset($_SESSI
         </main>
     </div>
         <?php
-        $qry="SELECT * FROM issues ORDER BY issue_id";
+        if(isset($_SESSION["userid"]) && isset($_SESSION["password"])){
+        $qry="SELECT * FROM issues WHERE student_id='".$_SESSION["userid"]."' ORDER BY added_on desc ;";
+        }elseif(isset ($_REQUEST["trash"]) == 'yes'){
+            $qry="SELECT * FROM issues WHERE trash='yes' ORDER BY added_on desc ;";
+        }else{
+           $qry="SELECT * FROM issues WHERE trash!='yes' ORDER BY added_on desc ;"; 
+        }
+//        echo $qry;
         $result=mysqli_query($con,$qry);
         while($row=mysqli_fetch_array($result))
         {
