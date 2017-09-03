@@ -1,4 +1,6 @@
-<?php
+<?php  session_start();
+if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
+{
 include './gecdp.php';
 $qry="SELECT * FROM user_registration ORDER BY id";
 $result= mysqli_query($con, $qry);
@@ -33,7 +35,7 @@ $result= mysqli_query($con, $qry);
                         <th>Gender:</th>
                         <th>Mobile No:</th>
                         <th>Address:</th>
-                        <th>Achivements:</th>
+                        <th>Achievements:</th>
 <!--                        <th>Update</th>
                         <th>Delete</th>-->
                     </tr>
@@ -42,7 +44,7 @@ $result= mysqli_query($con, $qry);
                     <?php while($row= mysqli_fetch_array($result)){ ?>
                     <tr>
                         <td><?php echo $row["rollno"]; ?></td>
-                        <td><img src="../studentphoto/<?php echo $row["photo"]; ?>" class="img-responsive"/></td>
+                        <td><img src=".../studentphoto/<?php echo $row["photo"]; ?>" class="img-responsive"/></td>
                         <td><?php echo $row["fname"]; ?></td>
                         <td><?php echo $row["lname"]; ?></td>
                         <td><?php echo $row["enrollment"]; ?></td>
@@ -65,3 +67,11 @@ $result= mysqli_query($con, $qry);
         <?php include './footer.php'; ?>
     </body>
 </html>
+<?php
+
+                    }
+                    else {
+                        header("Location:Admin_login.php");
+                        
+                    }
+?>
