@@ -1,6 +1,4 @@
 <?php session_start();
-ini_set('error_reporting', 0);
-ini_set('display_errors', 0);
 include './gecdp.php';
 if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"])){
     
