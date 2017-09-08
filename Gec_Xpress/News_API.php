@@ -9,7 +9,7 @@ for($i=0;$i<5;$i++)
 {
 //echo $i;
 $sites= $urlSourcesArray['articles'][$i];
-echo $sites['title']."<br>";
+echo "<p style='font-size: 15px;'><span class='fa fa-comments' style='font-size: 20px;padding-left: 10px;'></span><span style='padding-left: 10px;'>".substr($sites['title'],0,40)."....</span></p>";
 
 }
 ?>

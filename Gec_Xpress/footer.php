@@ -11,6 +11,7 @@
         </style>
     </head>
     <body style="">
+        <footer>
         <nav class="navbar navbar-inverse" style="border-radius: 0px;margin-bottom: 0px;">
             <div class="container">
                 <div class="row" style="font-family:Gabriola;margin-top:10px;color: #c2c2c2;">
@@ -26,5 +27,6 @@
                 </div>
             </div>
         </nav>
+        </footer>
     </body>
 </html>

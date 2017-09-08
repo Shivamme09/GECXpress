@@ -1,12 +1,17 @@
-<?php include './gecdp.php';
+<?php   session_start();
+        ini_set('error_reporting', 0);
+        ini_set('display_errors', 0);
+        include './gecdp.php';
  include './header.php';
 if(isset($_REQUEST["btnsubmit2"]))
 {
     $pass= htmlspecialchars($_REQUEST["txtpass"],ENT_QUOTES);
-    $confpass= md5(htmlspecialchars($_REQUEST["txtconf"],ENT_QUOTES));
-    if($pass==$confpass)
+    $confpass= htmlspecialchars($_REQUEST["txtconf"],ENT_QUOTES);
+    if($pass == $confpass)
     {
-        $qry_n="UPDATE user_registration SET password='".$pass."'";
+        $qry_n="UPDATE user_registration SET password='".md5($pass)."' WHERE rollno='".$_SESSION["rollno"]."'";
+        $_SESSION["rollno"]="";
+        session_destroy();
         $result_n= mysqli_query($con, $qry_n);
         if($result_n)
         {
@@ -34,7 +39,7 @@ if(isset($_REQUEST["btnsubmit2"]))
     {
         ?>
 <script>
-    alert("Your password and confirmpassword is not matching. Please try again!!");
+    alert("Your password and confirm password is not matching. Please try again!!");
     window.location.href="Forget_password.php";
 </script>    
         <?php
@@ -47,36 +52,21 @@ else if(isset($_REQUEST["btnsubmit"]))
     $rollno= htmlspecialchars($_REQUEST["txtrollno"],ENT_QUOTES);
     $email= htmlspecialchars($_REQUEST["txtemail"],ENT_QUOTES);
     
-    $qry="SELECT * FROM user_registration WHERE fname='".$fname."'&&rollno='".$rollno."'&&emailid='".$email."'";
+    $qry="SELECT * FROM user_registration WHERE fname='".$fname."'&&rollno='".$rollno."'&&emailid='".$email."'&&trash!='yes'";
     $result= mysqli_query($con, $qry);
     $row= mysqli_fetch_array($result);
     if(mysqli_affected_rows($con)>0)
     {
+        $_SESSION["rollno"]=$rollno;
         ?>
 <html>
     <head>
         <title></title>
-                <link rel="icon" href="images/bulb_logo.png"/>
-        <!-- Latest compiled and minified CSS -->
+        <link rel="icon" href="images/bulb_logo.png"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-        <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-        <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <style>
-          input:focus:invalid
-          {
-              border-color: #a94442;
-              box-shadow:0 0px 6px #ce8483;
-          }
-          input:required:valid
-          {
-              border-color: #3c763d;
-              box-shadow: 0px 0px 6px #67b168
-          }
-        </style>
+        <script src="script.js"></script>
     </head>
     <body>
         <div class="container" style="padding-bottom: 150px;padding-top: 150px;">
@@ -116,29 +106,13 @@ else
     <head>
         <meta charset="UTF-8">
         <title></title>
-        <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-        <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-        <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <style>
-          input:focus:invalid
-          {
-              border-color: #a94442;
-              box-shadow:0 0px 6px #ce8483;
-          }
-          input:required:valid
-          {
-              border-color: #3c763d;
-              box-shadow: 0px 0px 6px #67b168
-          }
-        </style>
+        <script src="script.js"></script>
     </head>
     <body>
-        <?php //include './header.php'; ?>
+        <?php // include './header.php'; ?>
         <div class="container" style="padding-top: 100px;padding-bottom: 100px;">
             <form method="POST" enctype="multipart/form-data">
                 <div class="form-group">
@@ -158,7 +132,7 @@ else
                 </div>
             </form>
         </div>
-        <?php //include './footer.php'; ?>
+        <?php // include './footer.php'; ?>
     </body>
 </html>
 <?php

@@ -1,5 +1,8 @@
 <?php session_start();
- include './gecdp.php';
+    ini_set('error_reporting', 0);
+    ini_set('display_errors', 0);
+    include './gecdp.php';
+    
  if(isset($_REQUEST["btnsubmit"]))
  {
     $branch= htmlspecialchars($_REQUEST["txtbranch"],ENT_QUOTES);
@@ -42,19 +45,27 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        
+        <title>Register student</title>
+        
         <link rel="icon" href="images/bulb_logo.png"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
-        <link rel="stylesheet" href="style.css" type="text/css"/>
-          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <link rel="stylesheet" href="../style.css" type="text/css"/>
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <script src="../script.js"></script>
     </head>
     <body>
         <?php include './header.php'; ?>
-        <div class="container" style="margin-top: 50px;margin-bottom: 50px;">
+        <div class="container border_page" style="padding:0px 80px;margin-top: 30px;margin-bottom: 30px;">
             <form method="POST" enctype="multipart/form-data">
+                <h2 class="text-center">Register Student</h2>
+                <hr>
                 <div class="form-group">
                     <label class="control-label">Select department:</label>      
                     <select name="txtbranch" class="form-control">

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 27, 2017 at 05:50 PM
+-- Generation Time: Sep 08, 2017 at 01:21 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `admin_pass` varchar(100) NOT NULL,
   `admin_email` varchar(50) NOT NULL,
   `admin_type` varchar(30) NOT NULL,
+  `trash` varchar(5) NOT NULL,
   PRIMARY KEY (`admin_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -40,11 +41,12 @@ CREATE TABLE IF NOT EXISTS `admin` (
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`admin_name`, `admin_pass`, `admin_email`, `admin_type`) VALUES
-('vi', 'b7a34cd782ccdfd0293be3d5763e7b87', 'v@g.com', 'Administrative'),
-('Vikash', 'b7a34cd782ccdfd0293be3d5763e7b87', 'vikashbanjare01@gmail.com', 'Principal'),
-('vikki', 'b7a34cd782ccdfd0293be3d5763e7b87', 'v@g.om', 'HOD'),
-('Yo', 'b7a34cd782ccdfd0293be3d5763e7b87', 'v@g.com', 'Faculty');
+INSERT INTO `admin` (`admin_name`, `admin_pass`, `admin_email`, `admin_type`, `trash`) VALUES
+('vi', 'b7a34cd782ccdfd0293be3d5763e7b87', 'v@g.com', 'Administrative', 'yes'),
+('Vikash', 'b7a34cd782ccdfd0293be3d5763e7b87', 'vikashbanjare01@gmail.com', 'Principal', ''),
+('vikki', 'b7a34cd782ccdfd0293be3d5763e7b87', 'v@g.om', 'HOD', 'yes'),
+('Yo', 'b7a34cd782ccdfd0293be3d5763e7b87', 'v@g.com', 'Faculty', ''),
+('yoyoy', 'b7a34cd782ccdfd0293be3d5763e7b87', 'y@g.co', 'Administrative', 'yes');
 
 -- --------------------------------------------------------
 
@@ -55,20 +57,20 @@ INSERT INTO `admin` (`admin_name`, `admin_pass`, `admin_email`, `admin_type`) VA
 CREATE TABLE IF NOT EXISTS `branch` (
   `bid` int(5) NOT NULL AUTO_INCREMENT,
   `bname` varchar(50) NOT NULL,
+  `trash` varchar(5) NOT NULL,
   PRIMARY KEY (`bid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `branch`
 --
 
-INSERT INTO `branch` (`bid`, `bname`) VALUES
-(1, 'Computer Science & Engineering'),
-(2, 'Mechanical Engineering'),
-(3, 'Electrical &amp; Electronics Engineering'),
-(4, 'Electronics &amp; Telecommunication Engineering'),
-(5, 'Civil Engineering'),
-(6, 'For all');
+INSERT INTO `branch` (`bid`, `bname`, `trash`) VALUES
+(4, 'Mechanical Engineering', 'yes'),
+(5, 'Electrical &amp; Electronics Engineering', ''),
+(7, 'Electronics &amp; Telecommunication Engineering', ''),
+(8, 'Civil Engineering', ''),
+(9, 'For all', '');
 
 -- --------------------------------------------------------
 
@@ -98,33 +100,23 @@ CREATE TABLE IF NOT EXISTS `codeclub` (
 CREATE TABLE IF NOT EXISTS `faculty_profile` (
   `fid` int(11) NOT NULL AUTO_INCREMENT,
   `fname` varchar(50) NOT NULL,
-  `department` varchar(30) NOT NULL,
+  `department` varchar(50) NOT NULL,
   `qualification` varchar(100) NOT NULL,
   `image` varchar(200) NOT NULL,
   `experience` varchar(200) NOT NULL,
   `subject` varchar(200) NOT NULL,
-  `researcharea` varchar(200) NOT NULL,
+  `researcharea` varchar(500) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `mobile` text NOT NULL,
   PRIMARY KEY (`fid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `faculty_profile`
 --
 
-INSERT INTO `faculty_profile` (`fid`, `fname`, `department`, `qualification`, `image`, `experience`, `subject`, `researcharea`) VALUES
-(3, 'master jiii', 'Computer Science & Engineering', 'nkgn', 'gst.jpg', 'abcsd', 'vdgggd', 'vdbbb'),
-(4, 'manmohan', '.Computer Science & Engineerin', 'm.tech', 'images1.jpg', '4', 'physics', 'quantum theory'),
-(5, 'manmohan SINGH', '.Computer Science & Engineerin', 'MAN', 'images1.jpg', 'GGURY', 'hjgy', 'ygyufguyjh'),
-(6, '', '.Computer Science & Engineerin', 'MAN', 'images1.jpg', 'GGURY', 'hjgy', 'ygyufguyjh'),
-(7, '', '.Computer Science & Engineerin', 'MAN', 'images1.jpg', 'GGURY', 'hjgy', 'ygyufguyjh'),
-(8, '', '.Computer Science & Engineerin', 'mbd', '', 'nfehf', 'hudyhue', 'vfdyyduvguyfg'),
-(9, 'viakash', '.Computer Science & Engineerin', 'mbd', '', 'nfehf', 'hudyhue', 'vfdyyduvguyfg'),
-(10, 'viakash', '.Computer Science & Engineerin', 'mbd', '', 'nfehf', 'hudyhue', 'vfdyyduvguyfg'),
-(11, 'viakash', '.Computer Science & Engineerin', 'mbd', '', 'nfehf', 'hudyhue', 'vfdyyduvguyfg'),
-(12, '".$fname."', '".$dptid."', '".$qwl."', '".$imagename1."', '".$expr."', '".$subject."', '".$rsrch."'),
-(13, 'manish', '.Computer Science & Engineerin', 'jfih', 'img.png', 'fdeef', 'ijdfi', 'jifehf'),
-(14, 'arunasur', '.Computer Science & Engineerin', '20', 'img.png', 'kkk', 'kkgk', 'kgfkgkgkggkkkgkg'),
-(15, 'arunasur', '.Computer Science & Engineerin', '20', 'img.png', 'kkk', 'kkgk', 'kgfkgkgkggkkkgkg');
+INSERT INTO `faculty_profile` (`fid`, `fname`, `department`, `qualification`, `image`, `experience`, `subject`, `researcharea`, `email`, `mobile`) VALUES
+(1, 'Test mach', '.Electronics & Telecommunication Engineering.', 'be,me,mtech', 'Ganpati-Image2.jpg', '5', 'null', 'mech                                            ', 'test@gmail.com', '8225068685');
 
 -- --------------------------------------------------------
 
@@ -140,8 +132,17 @@ CREATE TABLE IF NOT EXISTS `feedback` (
   `feedback_desc` text NOT NULL,
   `added_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `feedback_type` varchar(50) NOT NULL,
+  `trash` varchar(5) NOT NULL,
   PRIMARY KEY (`feedback_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`feedback_id`, `feedback_rate`, `student_id`, `feedback_title`, `feedback_desc`, `added_on`, `feedback_type`, `trash`) VALUES
+(1, 'Positive', 2147483647, 'j', 'jjjjjjjjjjjjjjjjjjjjjjj\r\n', '2017-09-01 17:07:40', '', 'yes'),
+(2, 'Positive', 2147483647, 'jjjjjjjjjjjjjjjjjj', 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', '2017-09-01 17:08:06', '', 'yes');
 
 -- --------------------------------------------------------
 
@@ -160,21 +161,24 @@ CREATE TABLE IF NOT EXISTS `issues` (
   `product_detail` varchar(70) NOT NULL,
   `issue_type` varchar(20) NOT NULL,
   `admin_comment` text NOT NULL,
+  `trash` varchar(5) NOT NULL,
   PRIMARY KEY (`issue_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `issues`
 --
 
-INSERT INTO `issues` (`issue_id`, `student_id`, `issue_title`, `issue_desc`, `issue_status`, `added_on`, `related_photo`, `product_detail`, `issue_type`, `admin_comment`) VALUES
-(5, '3162214059', 'The standard Lorem Ipsum passage, used since the 1500s', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 'Open', '2017-08-09 15:41:05', 'slider1.jpg', 'The standard Lorem Ipsum passage, used since the 1500s', 'Technical', '                        '),
-(6, '3162214059', 'The standard Lorem Ipsum passage, used since the 1500s', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 'Inprocess', '2017-08-09 15:41:13', 'slider1.jpg', 'The standard Lorem Ipsum passage, used since the 1500s', 'Technical', '                        '),
-(7, '3162214059', 'The standard Lorem Ipsum passage, used since the 1500s', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 'Inprocess', '2017-08-10 11:26:09', 'slider1.jpg', 'The standard Lorem Ipsum passage, used since the 1500s', 'Technical', '          RaamTest1AdmIssue, Testing for handling issue management, progress looking for how assignment or escalation can be handled'),
-(8, '3162214059', 'The standard Lorem Ipsum passage, used since the 1500s', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 'Respond', '2017-08-09 15:41:33', 'slider1.jpg', 'The standard Lorem Ipsum passage, used since the 1500s', 'Technical', '                        '),
-(11, '3162214059', '"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."', '"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."', 'Resolve', '2017-08-09 15:42:12', 'feedback.jpg', '"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, conse', 'Technical', '                        '),
-(12, '3162214059', 'Yo baby', 'Yo babdy asdjflsdjf jadk ndjf nioj klnio kio', 'Solved', '2017-08-09 15:42:24', '10.png', '', 'Miscellaneous', '                        '),
-(13, '3162214059', 'computer not working', 'software is not working. computer is not booting up.', 'Solved', '2017-08-21 10:35:05', 'bulb_logo.png', 'c-12  of our computer lab is  not working', 'Technical', '          ');
+INSERT INTO `issues` (`issue_id`, `student_id`, `issue_title`, `issue_desc`, `issue_status`, `added_on`, `related_photo`, `product_detail`, `issue_type`, `admin_comment`, `trash`) VALUES
+(5, '3162214059', 'The standard Lorem Ipsum passage, used since the 1500s', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 'Open', '2017-09-01 17:02:02', 'slider1.jpg', 'The standard Lorem Ipsum passage, used since the 1500s', 'Technical', '                        ', 'yes'),
+(6, '3162214059', 'The standard Lorem Ipsum passage, used since the 1500s', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 'Inprocess', '2017-09-01 17:02:17', 'slider1.jpg', 'The standard Lorem Ipsum passage, used since the 1500s', 'Technical', '                        ', 'yes'),
+(7, '3162214059', 'The standard Lorem Ipsum passage, used since the 1500s', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 'Inprocess', '2017-09-01 17:01:52', 'slider1.jpg', 'The standard Lorem Ipsum passage, used since the 1500s', 'Technical', '          RaamTest1AdmIssue, Testing for handling issue management, progress looking for how assignment or escalation can be handled', 'yes'),
+(8, '3162214059', 'The standard Lorem Ipsum passage, used since the 1500s', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', 'Respond', '2017-09-01 17:02:12', 'slider1.jpg', 'The standard Lorem Ipsum passage, used since the 1500s', 'Technical', '                        ', 'yes'),
+(11, '3162214059', '"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."', '"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."', 'Resolve', '2017-09-01 17:02:08', 'feedback.jpg', '"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, conse', 'Technical', '                        ', 'yes'),
+(12, '3162214059', 'Yo baby', 'Yo babdy asdjflsdjf jadk ndjf nioj klnio kio', 'Solved', '2017-09-01 17:01:57', '10.png', '', 'Miscellaneous', '                        ', 'yes'),
+(13, '3162214059', 'computer not working', 'software is not working. computer is not booting up.', 'Solved', '2017-09-01 17:00:57', 'bulb_logo.png', 'c-12  of our computer lab is  not working', 'Technical', '          ', 'yes'),
+(14, '3162214059', 'Yo', 'dkfjkajadfadd', 'OPEN', '2017-09-01 16:57:46', 'blah.png', 'fjdfj', 'Technical', '', 'yes'),
+(15, '3162214059', 'LY', 'jkllllllllllllllllllllllllll', 'OPEN', '2017-09-01 16:52:22', 'slider3.jpg', 'jalkjlk', 'Technical', '', 'yes');
 
 -- --------------------------------------------------------
 
@@ -194,6 +198,7 @@ CREATE TABLE IF NOT EXISTS `news` (
   `last_date` varchar(50) NOT NULL,
   `news_type` varchar(50) NOT NULL,
   `url` varchar(500) NOT NULL,
+  `trash` varchar(5) NOT NULL,
   PRIMARY KEY (`news_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
@@ -201,19 +206,19 @@ CREATE TABLE IF NOT EXISTS `news` (
 -- Dumping data for table `news`
 --
 
-INSERT INTO `news` (`news_id`, `dept_name`, `news_title`, `news_desc`, `related_photo`, `creater_id`, `is_active`, `added_on`, `last_date`, `news_type`, `url`) VALUES
-(1, 'For College,', 'The standard Lorem Ipsum passage, used since the 1500s', '                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum                                        ', '1004.jpg', 'Vikash', 'active', '2017-08-07 13:48:18', '2017-08-12', 'For Training and Placement', 'aayam.com'),
-(2, 'Computer Science And Engineering,Mechanical Engineering,Civil Engineering,', 'The standard Lorem Ipsum passage, used since the 1500s', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', '1004.jpg', 'Vikash', 'active', '2017-08-07 13:47:09', '2017-08-12', 'For Training and Placement', 'aayam.com'),
-(3, 'Computer Science And Engineering,Mechanical Engineering,Civil Engineering,', 'The standard Lorem Ipsum passage, used since the 1500s', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', '1004.jpg', 'Vikash', 'active', '2017-08-07 13:47:27', '2017-08-12', 'For Training and Placement', 'aayam.com'),
-(4, 'For all branch,For College,', 'Manmohans Laptop is not working so collection money to replace his motherboard', 'Manmohans Laptop is not working so collection money to replace his motherboard', 'Screenshot (22).png', 'Vikash', 'active', '2017-08-10 13:02:13', '2017-08-19', 'For Addmission', 'http://google.com'),
-(5, 'For College,', 'The standard Lorem Ipsum passage, used since the 1500s', '                        The standard Lorem Ipsum passage, used since the 1500s                    ', '', 'Vikash', 'active', '2017-08-10 14:43:41', '2017-08-18', 'For Exam', 'http://google.com'),
-(6, 'Computer Science And Engineering,', 'The standard Lorem Ipsum passage, used since the 1500s', 'The standard Lorem Ipsum passage, used since the 1500s', '', 'Vikash', 'active', '2017-08-10 14:46:58', '2017-08-11', 'For Training and Placement', 'http://google.com'),
-(7, 'Computer Science And Engineering,Mechanical Engineering,', 'The standard Lorem Ipsum passage, used since the 1500s', '                        ', '', 'Vikash', 'active', '2017-08-10 14:56:51', '', 'For Exam', 'https://go'),
-(8, 'Civil Engineering,', 'The standard Lorem Ipsum passage, used since the 1500s', '                        ', '', 'Vikash', 'active', '2017-08-10 14:58:49', '', 'For Exam', 'http://google.com'),
-(9, 'Mechanical Engineering,', 'The standard Lorem Ipsum passage, used since the 1500s', '                        ', '', 'Vikash', 'active', '2017-08-10 15:01:13', '', 'For Exam', 'http://google.com'),
-(10, 'Computer Science And Engineering,', 'The standard Lorem Ipsum passage, used since the 1500s', '  ', 'complain.pdf', 'Vikash', 'active', '2017-08-10 15:03:32', '', 'For Function', 'http://google.com'),
-(11, 'Electronics And Telecommunication,', 'The standard Lorem Ipsum passage, used since the 1500s', '                        ', '', 'Vikash', 'active', '2017-08-10 15:04:49', '', 'For Exam', 'http://google.com'),
-(12, 'For College,', 'State Scholarship', '                      The state announced the scholarship.', 'IMG_20170421_125749.jpg', 'Vikash', 'active', '2017-08-10 16:46:01', '2017-08-10', 'For Scholoarship', 'http://');
+INSERT INTO `news` (`news_id`, `dept_name`, `news_title`, `news_desc`, `related_photo`, `creater_id`, `is_active`, `added_on`, `last_date`, `news_type`, `url`, `trash`) VALUES
+(1, 'For College,', 'The standard Lorem Ipsum passage, used since the 1500s', '                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum                                        ', '1004.jpg', 'Vikash', 'active', '2017-08-07 13:48:18', '2017-08-12', 'For Training and Placement', 'aayam.com', 'yes'),
+(2, 'Computer Science And Engineering,Mechanical Engineering,Civil Engineering,', 'The standard Lorem Ipsum passage, used since the 1500s', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', '1004.jpg', 'Vikash', 'active', '2017-08-07 13:47:09', '2017-08-12', 'For Training and Placement', 'aayam.com', 'yes'),
+(3, 'Computer Science And Engineering,Mechanical Engineering,Civil Engineering,', 'The standard Lorem Ipsum passage, used since the 1500s', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum', '1004.jpg', 'Vikash', 'active', '2017-08-07 13:47:27', '2017-08-12', 'For Training and Placement', 'aayam.com', 'yes'),
+(4, 'For all branch,For College,', 'Manmohans Laptop is not working so collection money to replace his motherboard', 'Manmohans Laptop is not working so collection money to replace his motherboard', 'Screenshot (22).png', 'Vikash', 'active', '2017-08-10 13:02:13', '2017-08-19', 'For Addmission', 'http://google.com', 'yes'),
+(5, 'For College,', 'The standard Lorem Ipsum passage, used since the 1500s', '                        The standard Lorem Ipsum passage, used since the 1500s                    ', '', 'Vikash', 'active', '2017-08-10 14:43:41', '2017-08-18', 'For Exam', 'http://google.com', 'yes'),
+(6, 'Computer Science And Engineering,', 'The standard Lorem Ipsum passage, used since the 1500s', 'The standard Lorem Ipsum passage, used since the 1500s', '', 'Vikash', 'active', '2017-08-10 14:46:58', '2017-08-11', 'For Training and Placement', 'http://google.com', 'yes'),
+(7, 'Computer Science And Engineering,Mechanical Engineering,', 'The standard Lorem Ipsum passage, used since the 1500s', '                        ', '', 'Vikash', 'active', '2017-08-10 14:56:51', '', 'For Exam', 'https://go', 'yes'),
+(8, 'Civil Engineering,', 'The standard Lorem Ipsum passage, used since the 1500s', '                        ', '', 'Vikash', 'active', '2017-08-10 14:58:49', '', 'For Exam', 'http://google.com', 'yes'),
+(9, 'Mechanical Engineering,', 'The standard Lorem Ipsum passage, used since the 1500s', '                        ', '', 'Vikash', 'active', '2017-08-10 15:01:13', '', 'For Exam', 'http://google.com', 'yes'),
+(10, 'Computer Science And Engineering,', 'The standard Lorem Ipsum passage, used since the 1500s', '  ', 'complain.pdf', 'Vikash', 'active', '2017-08-10 15:03:32', '', 'For Function', 'http://google.com', 'yes'),
+(11, 'Electronics And Telecommunication,', 'The standard Lorem Ipsum passage, used since the 1500s', '                        ', '', 'Vikash', 'active', '2017-08-10 15:04:49', '', 'For Exam', 'http://google.com', 'yes'),
+(12, 'For College,', 'State Scholarship', '                      The state announced the scholarship.', 'IMG_20170421_125749.jpg', 'Vikash', 'active', '2017-08-10 16:46:01', '2017-08-10', 'For Scholoarship', 'http://', 'yes');
 
 -- --------------------------------------------------------
 
@@ -224,6 +229,7 @@ INSERT INTO `news` (`news_id`, `dept_name`, `news_title`, `news_desc`, `related_
 CREATE TABLE IF NOT EXISTS `news_type` (
   `nid` int(10) NOT NULL AUTO_INCREMENT,
   `ntype` varchar(50) NOT NULL,
+  `trash` varchar(5) NOT NULL,
   PRIMARY KEY (`nid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
@@ -231,11 +237,9 @@ CREATE TABLE IF NOT EXISTS `news_type` (
 -- Dumping data for table `news_type`
 --
 
-INSERT INTO `news_type` (`nid`, `ntype`) VALUES
-(3, 'For Training and Placement'),
-(4, 'For Scholoarship'),
-(5, 'For Addmission'),
-(6, 'Other');
+INSERT INTO `news_type` (`nid`, `ntype`, `trash`) VALUES
+(5, 'For Addmission', 'yes'),
+(6, 'Other', '');
 
 -- --------------------------------------------------------
 
@@ -309,6 +313,7 @@ CREATE TABLE IF NOT EXISTS `user_registration` (
   `achive` text NOT NULL,
   `photo` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
+  `trash` varchar(5) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `rollno` (`rollno`),
   UNIQUE KEY `enrollment` (`enrollment`)
@@ -318,12 +323,12 @@ CREATE TABLE IF NOT EXISTS `user_registration` (
 -- Dumping data for table `user_registration`
 --
 
-INSERT INTO `user_registration` (`id`, `fname`, `lname`, `fathername`, `dob`, `gender`, `emailid`, `mobileno`, `address`, `rollno`, `enrollment`, `semester`, `branch`, `achive`, `photo`, `password`) VALUES
-(1, 'Vikash', 'Banjare', 'J.R.Banjare', '1997-02-01', 'Male', 'vikashbanjare01@gmail.com', '8085742314', '                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Kumhari                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ', '3162214059', 'AP0938', 7, 'Computer Science And Engineering', '                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Bootstrap                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ', '', 'b7a34cd782ccdfd0293be3d5763e7b87'),
-(2, '', '', '', '0000-00-00', '', '', '', '', '', '', 0, '', '', '', '@'),
-(5, 'Manmohan', '', '', '0000-00-00', '', 'vikashbanjare01@gmail.com', '7575757575', '', '3162214024', NULL, 0, 'Mechanical Engineering', '', '', 'Man@57575'),
-(6, 'Locha', '', '', '0000-00-00', '', 'vikashbanjare01@gmail.com', '8085742314', '', '3162214023', NULL, 0, 'Civil Engineering', '', '', '460987fe7c9ea944e23f63d57dbd1d2f'),
-(7, 'Honey sing', '', '', '0000-00-00', '', 'vikashbanjare01@gmail.com', '8085742314', '', '3162214000', NULL, 0, 'Computer Science And Engineering', '', '', '5c46bdc77eb62bfb5f7eb61b6a67108b');
+INSERT INTO `user_registration` (`id`, `fname`, `lname`, `fathername`, `dob`, `gender`, `emailid`, `mobileno`, `address`, `rollno`, `enrollment`, `semester`, `branch`, `achive`, `photo`, `password`, `trash`) VALUES
+(1, 'Vikash', 'Banjare', 'J.R.Banjare', '1997-02-01', 'Male', 'vikashbanjare01@gmail.com', '8085742314', '                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Kumhari                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ', '3162214059', 'AP0938', 7, 'Computer Science And Engineering', '                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Bootstrap                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ', '', 'b7a34cd782ccdfd0293be3d5763e7b87', 'yes'),
+(2, '', '', '', '0000-00-00', '', '', '', '', '', '', 0, '', '', '', '@', ''),
+(5, 'Manmohan', '', '', '0000-00-00', '', 'vikashbanjare01@gmail.com', '7575757575', '', '3162214024', NULL, 0, 'Mechanical Engineering', '', '', 'b7a34cd782ccdfd0293be3d5763e7b87', 'yes'),
+(6, 'Locha', '', '', '0000-00-00', '', 'vikashbanjare01@gmail.com', '8085742314', '', '3162214023', NULL, 0, 'Civil Engineering', '', '', '460987fe7c9ea944e23f63d57dbd1d2f', 'yes'),
+(7, 'Honey sing', '', '', '0000-00-00', '', 'vikashbanjare01@gmail.com', '8085742314', '', '3162214000', NULL, 0, 'Computer Science And Engineering', '', '', '5c46bdc77eb62bfb5f7eb61b6a67108b', 'yes');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

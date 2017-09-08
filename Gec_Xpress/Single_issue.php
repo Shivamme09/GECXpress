@@ -1,8 +1,8 @@
 <?php session_start();
-ini_set('error_reporting', 0);
-ini_set('display_errors', 0);
-include './gecdp.php';
- //include './header.php';
+        ini_set('error_reporting', 0);
+        ini_set('display_errors', 0);
+        include './gecdp.php';
+        
 if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
 {
     if(isset($_REQUEST["issue_id"]))
@@ -26,21 +26,24 @@ else if(isset($_SESSION["userid"]) && isset($_SESSION["password"]))
 <html>
     <head>
         <meta charset="UTF-8">
+        
         <title>Issue</title>
+        
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        
         <link rel="icon" href="images/bulb_logo.png"/>
+        
         <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 
-          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-          <link rel="stylesheet" href="style.css" type="text/css">
-          <style>
-              .container
-              {
-                  padding: 0px;
-              }
-          </style>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <link rel="stylesheet" href="style.css" type="text/css">
+        
+        <script src="script.js"></script>
           
           <script type="text/javascript">
              function confirmDelete(link)
@@ -97,7 +100,7 @@ else if(isset($_SESSION["userid"]) && isset($_SESSION["password"]))
             </article>
               </a>
                   <?php }else{ ?>
-                  <a href="#" style="color:#000;pointer-events: none;" title="Delete the issue" >
+                  <a href="Issue_view.php?status=delete && issue_id=<?php echo $row["issue_id"]; ?>" style="color:#000;" title="Delete the issue" >
               
             <article class="one_half first"><i class="icon fa fa-trash-o"></i>
               

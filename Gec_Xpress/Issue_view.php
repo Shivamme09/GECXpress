@@ -4,7 +4,7 @@ ini_set('display_errors', 0);
  include './gecdp.php';
 if((isset($_SESSION["userid"]) && isset($_SESSION["password"]))|| (isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"])))
 {
-    if(isset($_REQUEST["status"]) && isset($_REQUEST["issue_id"]))
+    if(isset($_REQUEST["status"]) && isset($_REQUEST["issue_id"]) && $_REQUEST["false"]=='false')
     {
         $qry_m="DELETE FROM issues WHERE issue_id=".$_REQUEST["issue_id"];
         $result_m= mysqli_query($con, $qry_m);
@@ -21,6 +21,15 @@ if((isset($_SESSION["userid"]) && isset($_SESSION["password"]))|| (isset($_SESSI
         {
             ?><script>alert('Currently there is a problem to delete the issue please try agian!!');</script><?php
         }
+    }
+    if(isset($_REQUEST["status"]) && isset($_REQUEST["issue_id"])){
+        $qry_h="UPDATE issues SET trash='yes' WHERE issue_id=".$_REQUEST["issue_id"];
+    if(mysqli_query($con, $qry_h)){
+        //echo "vikash";
+        ?><script>alert('News is moved to trash!!');
+                    window.location.href="Issue_view.php";
+        </script><?php
+    }
     }
     if(isset($_REQUEST["techsubmit"]))
     {
@@ -106,35 +115,13 @@ if((isset($_SESSION["userid"]) && isset($_SESSION["password"]))|| (isset($_SESSI
     <head>
         <meta charset="UTF-8">
         <title>Issues</title>
-                <link rel="icon" href="images/bulb_logo.png"/>
+        <link rel="icon" href="images/bulb_logo.png"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
         <link rel="stylesheet" href="style.css" type="text/css"/>
-          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-          <style>
-                input:focus:invalid
-                {
-                    border-color: #a94442;
-                    box-shadow:0 0px 8px #ce8483;
-                }
-                input:required:valid
-                {
-                    border-color: #3c763d;
-                    box-shadow: 0px 0px 8px #67b168
-                }
-                textArea:focus:empty
-                {
-                    border-color: #a94442;
-                    box-shadow:0 0px 8px #ce8483;
-                }
-                textArea:required:valid
-                {
-                    border-color: #3c763d;
-                    box-shadow: 0px 0px 8px #67b168
-                }
-          </style>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
          
     </head>
     <body>
@@ -168,7 +155,14 @@ if((isset($_SESSION["userid"]) && isset($_SESSION["password"]))|| (isset($_SESSI
         </main>
     </div>
         <?php
-        $qry="SELECT * FROM issues ORDER BY issue_id";
+        if(isset($_SESSION["userid"]) && isset($_SESSION["password"])){
+        $qry="SELECT * FROM issues WHERE student_id='".$_SESSION["userid"]."' AND trash!='yes' ORDER BY added_on desc ;";
+        }elseif(isset ($_REQUEST["trash"]) == 'yes'){
+            $qry="SELECT * FROM issues WHERE trash='yes' ORDER BY added_on desc ;";
+        }else{
+           $qry="SELECT * FROM issues WHERE trash!='yes' ORDER BY added_on desc ;"; 
+        }
+//        echo $qry;
         $result=mysqli_query($con,$qry);
         while($row=mysqli_fetch_array($result))
         {
@@ -176,7 +170,7 @@ if((isset($_SESSION["userid"]) && isset($_SESSION["password"]))|| (isset($_SESSI
         <div class="container" style="margin-bottom: 50px;">
             <a href="Single_issue.php?issue_id=<?php echo $row["issue_id"] ?>" style="text-decoration: none;">
                 <div class="row" style="border:1px solid #AEADAE;">
-                    <div class="col-md-3" style="padding: 0px;"><img style="min-height: 180px;" src="Issuephoto/<?php echo $row["related_photo"]?>" alt="Issue related pic" class="img-responsive"/></div>
+                    <div class="col-md-3" style="padding: 0px;"><img style="min-height:180px;max-height: 180px;" src="Issuephoto/<?php echo $row["related_photo"]?>" alt="Issue related pic" class="img-responsive"/></div>
                     <div class="col-md-9" style="padding-top: 30px;padding-bottom: 30px;font-size: 40px;"><?php echo $row["issue_title"] ?></div>
                 </div>
                 <div class="row" style="border:1px solid #AEADAE;padding: 15px;border-top: 0px;">

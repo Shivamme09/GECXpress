@@ -1,10 +1,6 @@
-<?php  session_start();
-if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
-{
-include 'gecdp.php';
-?>
 <?php
-if(isset($_REQUEST["submit"]))
+include 'gecdp.php';
+if(isset($_REQUEST["btnsubmit"]))
     {
     $fname=$_REQUEST["name"];
      $dptid=$_REQUEST["dpt"];
@@ -16,18 +12,19 @@ if(isset($_REQUEST["submit"]))
         {
             $imagename1=$_FILES["upfile"]["name"];
         }
-      $expr=$_REQUEST["txtexpr"];
-      $subject=$_REQUEST["txtsub"];
-      $rsrch=$_REQUEST["txtrsrch"];
-  
+      $expr=$_REQUEST["expr"];
+      $subject=$_REQUEST["sub"];
+      $rsrch=$_REQUEST["rsrch"];
+  $mobile=$_REQUEST["mob"];
+  $mail=$_REQUEST["mail"];
      // $postedby=$_REQUEST["poster"];
       $qry_s="INSERT INTO faculty_profile
-                (fname,department,qualification,image,experience,subject,researcharea)
+                (fname,department,qualification,image,experience,subject,researcharea,email,mobile)
                 VALUES
-                ('".$fname."','.$dptid.','".$qwl."','".$imagename1."','".$expr."','".$subject."','".$rsrch."')";
+                ('".$fname."','.$dptid.','".$qwl."','".$imagename1."','".$expr."','".$subject."','".$rsrch."','".$mail."','".$mobile."')";
        
-       // echo $qry;
-       $result= mysqli_query($con, $qry_s);
+       // echo $qry_s;
+       $result=mysqli_query($con, $qry_s);
     if($result)
     {
         ?>
@@ -50,53 +47,53 @@ if(isset($_REQUEST["submit"]))
 
  }
 ?>
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
-    <?php
+    <head>
+        <meta charset="UTF-8">
+         <?php
 if(isset($_REQUEST["id"]) && $_REQUEST["status"]=="edit")
 {
-    echo '<title>Update</title>';
-}  else {
-    echo '<title>Registration</title>';
-}
-    ?>
-    <head>
-    </head>
-    <?php
-    if(isset($_REQUEST["id"]) && $_REQUEST["status"]=="edit")
-{
-include'gecdp.php';
+    echo '<title>Update details</title>';
+    include'gecdp.php';
 $qry="Select * from faculty_profile WHERE fid=".$_REQUEST["id"];
 $result_m= mysqli_query($con, $qry);
 $row_m= (mysqli_fetch_array($result_m));
-?>
+}
+else {
+    echo '<title>Add Teacher</title>';
+}
+    ?>
+        <link rel="icon" href="images/bulb_logo.png"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+        <link rel="stylesheet" href="style.css" type="text/css"/>
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
     <body>
-        <form method="POST" enctype="multipart/form-data">
-            <table>
-                
-                <tr><td>Name:</td> 
-                <td> <input type="text" name="name"
-                            <?php 
+        <?php include './header.php'; ?>
+        <div class="container" style="margin-top: 50px;margin-bottom: 50px;">
+            <form method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label class="control-label">Select department:</label>      
+                    <select name="dpt" class="form-control">
+                       
+                        <?php
                 if(isset($_REQUEST["id"]) && $_REQUEST["status"]=="edit")
                 {
-                echo "value='".$row_m["fid"]."'";
+                echo "<option value='".$row_m["department"]."'>" .$row_m["department"]."</option>";
+                include './gecdp.php';
+                                                $qry_b = "SELECT * FROM branch ORDER BY bid";
+                                                $result_b = mysqli_query($con,$qry_b);
+                                                while ($row_b = mysqli_fetch_array($result_b)){
+                     echo"<option value='" . $row_b["bname"] . "'>" . $row_b['bname'] . "</option>";
+                                                }
                 }
                 else
                 {
-                    echo"value=''";
-                }
-                ?>  >
-                </td>
-                </tr>
-                <tr><td>Department:</td> 
-                    <td><select name="dpt"> 
-                    <?php
-                if(isset($_REQUEST["id"]) && $_REQUEST["status"]=="edit")
-                {
-                echo "<option value='".$row_m["fid"]."'>" .$row_m["department"]."</option>";
-                }
-                else
-                {
+                     echo'<option value="">Select branch</option>';
                                                  include './gecdp.php';
                                                 $qry_b = "SELECT * FROM branch ORDER BY bid";
                                                 $result_b = mysqli_query($con,$qry_b);
@@ -105,15 +102,90 @@ $row_m= (mysqli_fetch_array($result_m));
                 }
                                                 }
                 ?>
-                                                
-                     
-                                    
-                        </select>
-                    </td>
-                </tr>
-                <tr><td>Qualification:</td> 
-                    <td><input type="text" name="txtqwl"
-                                <?php 
+                 <?php
+                 
+                   
+                        //  $qry_c = "SELECT * FROM branch ORDER BY bid";
+                        //$result_c = mysqli_query($con,$qry_c);
+                       // $i=1;
+                      //  while ($row_c = mysqli_fetch_array($result_c)) {
+                            //echo"<option value='" . $row_c['bname'] . "'>" . $row_c['bname'] . "</option>";
+                            //if($i==5)
+                          //      break;
+                         //   $i++;
+                          //  }
+                    ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Teacher Name:</label>
+                    <input type="text" name="name" placeholder="Enter name" class="form-control"
+                           <?php 
+                if(isset($_REQUEST["id"]) && $_REQUEST["status"]=="edit")
+                {
+                echo "value='".$row_m["fname"]."'";
+                }
+                else
+                {
+                    echo"value=''";
+                }
+                ?>/>
+                </div>
+                <div>
+                    <label class="control-label">Image:</label>
+                     <br>
+                    <?php
+                    if(isset($_REQUEST["id"]) && $_REQUEST["status"]=="edit")
+                    {  
+                        if($row_m["image"])
+                        {
+                        echo"
+                            <a href='facultyimage/".$row_m["image"]."' target='_blank' class='btn btn-default'>See existing photo</a>
+                        ";
+                        echo "<br><br>";
+                        }
+                        echo"<input type='file' name='upfile' value='".$row_m["image"]."' class='btn btn-default' accept='images/*'/>";
+                    }
+                    else
+                    {
+                    ?>
+                    <input type="file" name="upfile" accept="images/*">
+                    <p style="color: #FF0000;">*file size limit is 5mb</p>
+                    <?php }?>
+                </div>
+                <div class="form-group">
+                    <label class="conrol-lable">Email id:</label>
+                    <input type="email" name="mail" placeholder="Enter email id" class="form-control"
+                           <?php 
+                if(isset($_REQUEST["id"]) && $_REQUEST["status"]=="edit")
+                {
+                echo "value='".$row_m["email"]."'";
+                }
+                else
+                {
+                    echo"value=''";
+                }
+                ?>/>
+                </div>
+          
+                <div class="form-group">
+                    <label class="conrol-lable">Phone number of Teacher:</label>
+                    <input type="number" name="mob" placeholder="Enter mobile number" class="form-control"
+                           <?php 
+                if(isset($_REQUEST["id"]) && $_REQUEST["status"]=="edit")
+                {
+                echo "value='".$row_m["mobile"]."'";
+                }
+                else
+                {
+                    echo"value=''";
+                }
+                ?>/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Qualification:</label>
+                    <input type="text" name="txtqwl" placeholder="Enter Qualification" class="form-control"
+                           <?php 
                 if(isset($_REQUEST["id"]) && $_REQUEST["status"]=="edit")
                 {
                 echo "value='".$row_m["qualification"]."'";
@@ -122,14 +194,12 @@ $row_m= (mysqli_fetch_array($result_m));
                 {
                     echo"value=''";
                 }
-                ?>   > </td>
-                </tr>
-                <tr><td>Image:</td> 
-                <td><input type="file" name="upfile" > </td>
-                </tr>
-                <tr><td>Experience:</td> 
-                <td><input type="text" name="txtexpr"
-                            <?php 
+                ?>/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Experience:</label>
+                    <input type="text" name="expr" placeholder="In Years" class="form-control"
+                           <?php 
                 if(isset($_REQUEST["id"]) && $_REQUEST["status"]=="edit")
                 {
                 echo "value='".$row_m["experience"]."'";
@@ -138,12 +208,12 @@ $row_m= (mysqli_fetch_array($result_m));
                 {
                     echo"value=''";
                 }
-                ?>
-                           > </td>
-                </tr>
-                <tr><td>Subject thought's:</td> 
-                <td><input type="text" name="txtsub"
-                            <?php 
+                ?>/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Subject thought's:</label>
+                    <input type="text" name="sub" placeholder="Enter subject name" class="form-control"
+                           <?php 
                 if(isset($_REQUEST["id"]) && $_REQUEST["status"]=="edit")
                 {
                 echo "value='".$row_m["subject"]."'";
@@ -152,41 +222,45 @@ $row_m= (mysqli_fetch_array($result_m));
                 {
                     echo"value=''";
                 }
-                ?>
-                           > </td>
-                </tr>
-                <tr><td>Research Area:</td> 
-                <td><textarea name="txtrsrch" rows="5" cols="20" value=""><?php echo $row_m["researcharea"]?></textarea></td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <?php
-if(isset($_REQUEST["id"]) && $_REQUEST["status"]=="edit")
-{
-    echo ' <input type="submit" name="update" value="Update"> ';
-}
- else {
-    echo ' <input type="submit" name="submit" value="Register"> ';
-}
-                                
-                                ?>
-                        </td>
-                </tr>
-            </table>
-        </form>
-    </body>
+                ?>/>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Research Area:</label>
+                    <textarea name="rsrch"  class="form-control">
+                        <?php 
+                if(isset($_REQUEST["id"]) && $_REQUEST["status"]=="edit")
+                {
+                    echo $row_m["researcharea"];
+} 
+else
+    {
     
+                    echo"";
+        }?>
+                    </textarea>
+                </div>
+                <div class="form-group text-center">
+                    <?php 
+                if(isset($_REQUEST["id"]) && $_REQUEST["status"]=="edit")
+                {
+                echo '<input type="submit" name="update" value="update" class="btn btn-lg btn-success"/>';
+                }
+                else
+                {
+                    echo'<input type="submit" name="btnsubmit" class="btn btn-lg btn-success"/>';
+                }
+                ?>
+                    
+                </div>
+            </form>
+        </div>
+        <?php include './footer.php'; ?>
+    </body>
 </html>
 
-<?php
-if(isset($_REQUEST["id"]) && $_REQUEST["status"]=="edit")
-{
-   include'gecdp.php';
-   $qry="SELECT * FROM faculty_profile WHERE fid=".$_REQUEST["id"];
-   $result= mysqli_query($con,$qry);
-   $row= mysqli_fetch_array($result);
 
-}
+<!--Update-->
+<?php
 if(isset($_REQUEST["update"]))
     {
     $fname=$_REQUEST["name"];
@@ -199,14 +273,15 @@ if(isset($_REQUEST["update"]))
         {
             $imagename1=$_FILES["upfile"]["name"];
         }
-      $expr=$_REQUEST["txtexpr"];
-      $subject=$_REQUEST["txtsub"];
-      $rsrch=$_REQUEST["txtrsrch"];
-  
+      $expr=$_REQUEST["expr"];
+      $subject=$_REQUEST["sub"];
+      $rsrch=$_REQUEST["rsrch"];
+   $mobile=$_REQUEST["mob"];
+  $mail=$_REQUEST["mail"];
      // $postedby=$_REQUEST["poster"];
       
         $qry="UPDATE faculty_profile SET
-            fname='".$fname."',department='".$dptid."',qualification='".$qwl."',image='".$imagename1."',experience='".$expr."',subject='".$subject."',researcharea='".$rsrch."'
+            fname='".$fname."',email='".$mail."',mobile='".$mobile."',department='".$dptid."',qualification='".$qwl."',image='".$imagename1."',experience='".$expr."',subject='".$subject."',researcharea='".$rsrch."'
             WHERE fid=".$_REQUEST["id"].";";
        // echo $qry;
        $result= mysqli_query($con, $qry);
@@ -233,15 +308,5 @@ if(isset($_REQUEST["update"]))
 
 }
 
-    }
-?>
-
-<?php
-
-                    }
-                    else
-                        {
-                        header("Location:Admin_login.php");
-                        
-                         }
+    
 ?>
