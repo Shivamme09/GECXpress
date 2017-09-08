@@ -2,7 +2,7 @@
 ini_set('error_reporting', 0);
 ini_set('display_errors', 0);
 include './gecdp.php';
-if(htmlspecialchars($_REQUEST["status"],ENT_QUOTES) && htmlspecialchars($_REQUEST["news_id"],ENT_QUOTES) && htmlspecialchars($_REQUEST["false"]=='false',ENT_QUOTES))
+if(isset($_REQUEST["delete"]) && isset($_REQUEST["delete"])=='yes' && isset($_REQUEST["news_id"]))
 {
     $qry_e="DELETE FROM news WHERE news_id=".htmlspecialchars($_REQUEST["news_id"],ENT_QUOTES);
     $result_e= mysqli_query($con, $qry_e);
@@ -19,10 +19,8 @@ if(htmlspecialchars($_REQUEST["status"],ENT_QUOTES) && htmlspecialchars($_REQUES
 }
 if(htmlspecialchars($_REQUEST["status"],ENT_QUOTES) && htmlspecialchars($_REQUEST["status"],ENT_QUOTES) === 'delete' && htmlspecialchars($_REQUEST["news_id"],ENT_QUOTES)){
     $qry_h="UPDATE news SET trash='yes' WHERE news_id=".htmlspecialchars($_REQUEST["news_id"],ENT_QUOTES);
-    //echo $qry_h;
     echo filter_input(INPUT_POST, "news_id");
     if(mysqli_query($con, $qry_h)){
-        //echo "vikash";
         ?><script>alert('News is moved to trash!!');
                     window.location.href="News_view.php";
         </script><?php
@@ -35,65 +33,44 @@ if(htmlspecialchars($_REQUEST["status"],ENT_QUOTES) && htmlspecialchars($_REQUES
     {
         $start= htmlspecialchars($_REQUEST["txtstart"],ENT_QUOTES);
         $end= htmlspecialchars($_REQUEST["txtend"],ENT_QUOTES);
-        $qry_s = "SELECT * FROM news WHERE date(added_on) between '" . $start . "' AND '".$end."'";
-
+        $qry_s = "SELECT * FROM news WHERE date(added_on) between '" . $start . "' AND '".$end."' AND trash!='yes'";
     }
     elseif(htmlspecialchars ($_REQUEST["btntype"]))
     {
         $type= htmlspecialchars($_REQUEST["txttype"],ENT_QUOTES);
-        $qry_s="SELECT * FROM news WHERE news_type='".$type."' ";
+        $qry_s="SELECT * FROM news WHERE news_type='".$type."' AND trash!='yes' ";
     }
     elseif (htmlspecialchars ($_REQUEST["btndept"])) {
         $dept= htmlspecialchars($_REQUEST["txtdept"],ENT_QUOTES);
-    $qry_s="SELECT * FROM news WHERE dept_name LIKE '%".$dept."%' ";
-}elseif(htmlspecialchars ($_REQUEST["trash"],ENT_QUOTES) === 'yes'){
-    $qry_s="SELECT * FROM news WHERE trash='yes' ORDER BY added_on";
-}
- else {
-    $qry_s="SELECT * FROM news WHERE trash!='yes' ORDER BY added_on";
-}
-    //echo $qry_s;
+        $qry_s="SELECT * FROM news WHERE (dept_name LIKE '%".$dept."%' OR dept_name LIKE '%For all%') AND trash!='yes' ORDER BY added_on DESC ";
+    }elseif(isset ($_REQUEST["trash"]) && isset ($_REQUEST["trash"])=='yes'){
+        $qry_s="SELECT * FROM news WHERE trash='yes' ORDER BY added_on";
+    }
+    else {
+        $qry_s="SELECT * FROM news WHERE trash!='yes' AND (dept_name LIKE '%".$_SESSION["student_branch"]."%' OR dept_name LIKE '%For all%') ORDER BY added_on";
+    }
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
+        
         <title>News</title>
-                <link rel="icon" href="images/bulb_logo.png"/>
+        
+        <link rel="icon" href="images/bulb_logo.png"/>
+        
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        
         <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 
-          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-          <link rel="stylesheet" href="style.css" type="text/css">
-          
-<style>
-    
-          
-          input:focus:invalid
-          {
-              border-color: #a94442;
-              box-shadow:0 0px 8px #ce8483;
-          }
-          input:required:valid
-          {
-              border-color: #3c763d;
-              box-shadow: 0px 0px 8px #67b168
-          }
-          select:focus:invalid
-          {
-              border-color: #a94442;
-              box-shadow:0 0px 8px #ce8483;
-          }
-          select:required:valid
-          {
-              border-color: #3c763d;
-              box-shadow: 0px 0px 8px #67b168
-          }
-    
-</style>
-          
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <link rel="stylesheet" href="style.css" type="text/css">
+        
     </head>
     <body>
         <?php
@@ -254,11 +231,29 @@ if(htmlspecialchars($_REQUEST["status"],ENT_QUOTES) && htmlspecialchars($_REQUES
             {
                 ?>
                 <div class="container" style="margin-bottom: 50px;">
-                    <a class="iframe" href="Single_news.php?news_id=<?php echo$row_s["news_id"];?>" style="text-decoration: none;">
+                    <?php
+                        if(isset($_REQUEST["trash"]) && isset($_REQUEST["trash"])=='yes')
+                        {?>
+                            <a class="iframe" href="Single_news.php?delete=yes&&news_id=<?php echo$row_s["news_id"];?>" style="text-decoration: none;">
+                        <?php
+                        }else{
+                        ?>
+                            <a class="iframe" href="Single_news.php?news_id=<?php echo$row_s["news_id"];?>" style="text-decoration: none;">
+                        <?php
+                        }
+                        ?>
                         <div class="row" style="border:1px solid #AEADAE;">
-                            <div class="col-md-3" style="padding: 0px;"><img style="min-height:180px;" src="
-                                                                             <?php if($row_s["related_photo"]){ ?>
-                                                                                        news/<?php echo $row_s["related_photo"];}
+                            <div class="col-md-3" style="padding: 0px;"><img style="min-height:180px;max-height: 180px;" src="
+                                                                             <?php if($row_s["related_photo"]){
+                                                                                    $ext = pathinfo($row_s["related_photo"],PATHINFO_EXTENSION);
+                                                                                    if($ext == 'pdf'){
+                                                                                        ?>
+                                                                                            images/pdffile.png
+                                                                                        <?php
+                                                                                    }else{
+                                                                                            
+                                                                                 ?>
+                                                                             news/<?php echo $row_s["related_photo"];}}
                                                                                     else{
                                                                                         echo "images/slider3.jpg";
                                                                                     }?>

@@ -1,16 +1,15 @@
 <?php
 include './gecdp.php';
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
-<title>Gec Express</title>
-<meta charset="utf-8">
+    <title>Gec Express</title>
+        <meta charset="utf-8">
         <link rel="icon" href="images/bulb_logo.png"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
-<link rel="icon" href="images/bulb_logo.png"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+        <link rel="icon" href="images/bulb_logo.png"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -32,7 +31,7 @@ include './Slider.php';
                 <!-- main body -->
                 
                 <div class="center btmspace-50" style="margin-top: 20px;"> 
-                    <p class="nospace"><a href="Code_club.php" style="color:#E84C3D;text-decoration:none;font-size:17px;">An initiative of CODE CLUB</a></p>
+                    <p class="nospace"><a href="Our_Team/index.html" style="color:#E84C3D;text-decoration:none;font-size:17px;">An initiative of CODE CLUB</a></p>
                     <h2 class="heading font-x3" style="font-size:40px;margin-top:15px;">Welcome to GEC Xpress</h2>
                     <p style="font-size:17px;">Education is the best provision for life's journey</p>
                 </div>
@@ -46,7 +45,7 @@ include './Slider.php';
                         </article>
                     </a>
                     
-                    <a href="Issue_tech_view.php" style="color:#000;text-decoration: none;">
+                    <a href="Issue_view.php" style="color:#000;text-decoration: none;">
                         <article class="one_quarter"><i class="icon fa fa-paper-plane"></i>
                             <h4 class="font-x1 uppercase"><p style="color:#E84C3D;text-decoration:none;font-size:17px;font-family: Georgia,'Times New Roman', 'Times, serif';">Issues</p></h4>
                             <p style="font-size:15px;text-align:justify;text-align-last:center;">Tell about the technical and non-technical issues faced in your college.</p>
@@ -109,7 +108,7 @@ include './Slider.php';
                                                 while($row=mysqli_fetch_array($result))
                                                 {
                                             ?>
-                                            <p style="font-size: 15px;"><span class="fa fa-comments" style="font-size: 20px;padding-left: 10px;"></span><span style="padding-left: 10px;"><?php echo $row["title"] ; }?></span></p>
+                                            <p style="font-size: 15px;"><span class="fa fa-comments" style="font-size: 20px;padding-left: 10px;"></span><span style="padding-left: 10px;"><?php echo substr($row["title"],0,40) ;?>....<?php }?></span></p>
                                             <hr><p style="text-align: center;color:#E84C3D;font-size: 16px;">More....</p>
 					</div>
                                     </a>

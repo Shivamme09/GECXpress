@@ -1,35 +1,30 @@
 <?php  session_start();
-ini_set('error_reporting', 0);
-ini_set('display_errors', 0);
- include '.././gecdp.php';
+    ini_set('error_reporting', 0);
+    ini_set('display_errors', 0);
+    include '.././gecdp.php';
 if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
 {
     if(isset($_REQUEST["status"]) && $_REQUEST["status"]=='update' && isset($_REQUEST["news_id"]))
     {
         $qry="SELECT * FROM news WHERE news_id=".$_REQUEST["news_id"];
         $result= mysqli_query($con,$qry);
-        $row= mysqli_fetch_array($result);
-       // echo $row["news_type"];
-           
+        $row= mysqli_fetch_array($result);           
     ?>
-<!--        <script>
-            alert('Aa raha hai!!!!');
-        </script>-->
     <?php
     }
     if(isset($_REQUEST["btnupdate"]))
     {
-        $type=$_REQUEST["txttype"];
-        $title=$_REQUEST["txttitle"];
+        $type= htmlspecialchars($_REQUEST["txttype"],ENT_QUOTES);
+        $title= htmlspecialchars($_REQUEST["txttitle"],ENT_QUOTES);
         $branch=$_POST['techno'];  
           $chk="";  
             foreach($branch as $chk1)  
                {  
                   $chk .= $chk1.",";
                } 
-        $url=$_REQUEST["txturl"];
-        $valid=$_REQUEST["txtdate"];
-        $desc=$_REQUEST["txtdesc"];        
+        $url= htmlspecialchars($_REQUEST["txturl"],ENT_QUOTES);
+        $valid= htmlspecialchars($_REQUEST["txtdate"],ENT_QUOTES);
+        $desc= htmlspecialchars($_REQUEST["txtdesc"],ENT_QUOTES);        
         $source_file=$_FILES["upfile"]["tmp_name"];
         $target_file = ".././news/" . $_FILES["upfile"]["name"];
         if (move_uploaded_file($source_file, $target_file)) {
@@ -44,8 +39,7 @@ if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
         if($chk == ""){
             $chk=$row["dept_name"];
         }
-        $qry_t="UPDATE news SET dept_name='".$chk."',news_title='".$title."',news_desc='".$desc."',related_photo='".$imagename."',creater_id='".$_SESSION["admin_name"]."',is_active='active',added_on=now(),last_date='".$valid."',news_type='".$type."',url='".$url."' WHERE news_id=".$_REQUEST["news_id"].";";
-            //echo $qry_t;
+        $qry_t="UPDATE news SET dept_name='".htmlspecialchars($chk,ENT_QUOTES)."',news_title='".$title."',news_desc='".$desc."',related_photo='".$imagename."',creater_id='".$_SESSION["admin_name"]."',is_active='active',added_on=now(),last_date='".$valid."',news_type='".$type."',url='".$url."' WHERE news_id=".$_REQUEST["news_id"].";";
         if(mysqli_query($con,$qry_t))
         {
             ?>
@@ -69,8 +63,8 @@ if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
     }
     if(isset($_REQUEST["btnpost"]))
     {
-        $type=$_REQUEST["txttype"];
-        $title=$_REQUEST["txttitle"];
+        $type= htmlspecialchars($_REQUEST["txttype"],ENT_QUOTES);
+        $title= htmlspecialchars($_REQUEST["txttitle"],ENT_QUOTES);
         $branch=$_POST['techno'];  
         $chk="";  
         foreach($branch as $chk1)  
@@ -80,15 +74,13 @@ if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
            }  
         $protocol=$_REQUEST["txtprotocol"];
         $url_without=$_REQUEST["txturl"];
-        $url=$protocol.$url_without;
-        $valid=$_REQUEST["txtdate"];
-        $desc=$_REQUEST["txtdesc"];        
+        $url= htmlspecialchars($protocol.$url_without,ENT_QUOTES);
+        $valid= htmlspecialchars($_REQUEST["txtdate"],ENT_QUOTES);
+        $desc= htmlspecialchars($_REQUEST["txtdesc"],ENT_QUOTES);        
         $source_file=$_FILES["upfile"]["tmp_name"];
         $target_file = ".././news/" . $_FILES["upfile"]["name"];
         if (move_uploaded_file($source_file, $target_file)) {
-
             $imagename = $_FILES["upfile"]["name"];
-
         }
         else{
             $imagename = "";
@@ -97,9 +89,8 @@ if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
         $qry_t="INSERT INTO news
             (dept_name,news_title,news_desc,related_photo,creater_id,is_active,added_on,last_date,news_type,url)
             VALUES
-            ('".$chk."','".$title."','".$desc."','".$imagename."','".$_SESSION["admin_name"]."','active',now(),'".$valid."','".$type."','".$url."');
+            ('".htmlspecialchars($chk,ENT_QUOTES)."','".$title."','".$desc."','".$imagename."','".$_SESSION["admin_name"]."','active',now(),'".$valid."','".$type."','".$url."');
             ";
-        //echo $qry_t;
         if(mysqli_query($con,$qry_t))
         {
             ?>
@@ -115,7 +106,6 @@ if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
             <script type='text/javascript'>
                 var str="<?php echo mysqli_error($con); ?>";  
                 var res=str.replace(/'/g,"");
-
                 alert(res);
             </script>
             <?php
@@ -126,28 +116,27 @@ if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
 <html>
     <head>
         <meta charset="UTF-8">
+        
         <title></title>
+        
         <link rel="icon" href="images/bulb_logo.png"/>
-        <!-- Latest compiled and minified CSS -->
+        
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-        <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-        <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         
-        <link href="style.css" rel="stylesheet" type="text/css" />
-        <style>
-            .header_top {
-    margin-top: -100px;
-}
-        </style>
+        <script src="../script.js"></script>
+        
+        <link href="../style.css" rel="stylesheet" type="text/css" />
+        
     </head>
     <body>
         <?php include './header.php'; ?>
-        <div class="container">
-            <h2>Post news</h2>
+        <div class="container border_page" style="padding: 0px 80px;">
+            <h2 class="text-center" style="padding: 20px 0px 20px 0px;">Post news</h2>
+            <hr>
             <form method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="lable-control">Select the type of news</label>

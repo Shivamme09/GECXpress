@@ -31,7 +31,7 @@ $result= mysqli_query($con, $qry);
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <?php //include './header.php'; ?>
+        <?php include './header.php'; ?>
         <div class="container-fluid table-responsive" style="margin-top: 50px;margin-bottom: 50px;">
             <table class="table table-striped table-bordered">
                 <thead>

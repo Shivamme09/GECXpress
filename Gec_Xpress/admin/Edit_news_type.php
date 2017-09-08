@@ -1,72 +1,79 @@
 <?php session_start();
-ini_set('error_reporting', 0);
-ini_set('display_errors', 0);
+    ini_set('error_reporting', 0);
+    ini_set('display_errors', 0);
+    include './gecdp.php';
 if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
 {
-include './gecdp.php';
-if(isset($_REQUEST["btnsave"])){
-    $ntype= htmlspecialchars($_REQUEST["txtntype"],ENT_QUOTES);
-    //echo $branch;
-    $qry_d="INSERT INTO news_type (ntype) VALUES ('".$ntype."')";
-    if(mysqli_query($con, $qry_d)){
-        ?>
-        <script>
-            alert("New news type is added successfully!!");
-            window.location.href="Edit_news_type.php";
-        </script>
-        <?php
-    }else{
-        ?>
-        <script>
-            var str="<?php echo mysqli_error($con); ?>";  
-            var res=str.replace(/'/g,"");
-            alert(res);
-        </script>
+    if(isset($_REQUEST["btnsave"])){
+        $ntype= htmlspecialchars($_REQUEST["txtntype"],ENT_QUOTES);
+        $qry_d="INSERT INTO news_type (ntype) VALUES ('".$ntype."')";
+        if(mysqli_query($con, $qry_d)){
+            ?>
+            <script>
+                alert("New news type is added successfully!!");
+                window.location.href="Edit_news_type.php";
+            </script>
             <?php
+        }else{
+            ?>
+            <script>
+                var str="<?php echo mysqli_error($con); ?>";  
+                var res=str.replace(/'/g,"");
+                alert(res);
+            </script>
+                <?php
+        }
     }
-}
-if(isset($_REQUEST["ntype_id"]) && $_REQUEST["false"]=='false'){
-    //echo $_REQUEST["branch_id"];
-    $qry_b="DELETE FROM news_type WHERE nid=".$_REQUEST["ntype_id"];
-    if(mysqli_query($con, $qry_b))
-    {
-        ?>
-        <script>
-            alert("News type is removed successfully!!");
-            window.location.href="Edit_news_type.php";
-        </script>
-        <?php
-    }else{
-    ?>
-        <script>
-            var str="<?php echo mysqli_error($con); ?>";  
-            var res=str.replace(/'/g,"");
-            alert(res);
-        </script>
+    if(isset($_REQUEST["ntype_id"]) && $_REQUEST["false"]=='false'){
+        $qry_b="DELETE FROM news_type WHERE nid=".$_REQUEST["ntype_id"];
+        if(mysqli_query($con, $qry_b))
+        {
+            ?>
+            <script>
+                alert("News type is removed successfully!!");
+                window.location.href="Edit_news_type.php";
+            </script>
             <?php
+        }else{
+        ?>
+            <script>
+                var str="<?php echo mysqli_error($con); ?>";  
+                var res=str.replace(/'/g,"");
+                alert(res);
+            </script>
+                <?php
+        }
     }
-}
-if(isset($_REQUEST["ntype_id"]) && isset($_REQUEST["trash"]) && isset($_REQUEST["trash"]) == 'yes'){
-    $qry_h="UPDATE news_type SET trash='yes' WHERE nid=".$_REQUEST["ntype_id"];
-    if(mysqli_query($con, $qry_h)){
-        //echo "vikash";
-        ?><script>alert('News_type is moved to trash!!');
-                    window.location.href="Edit_news_type.php";
-        </script><?php
+    if(isset($_REQUEST["ntype_id"]) && isset($_REQUEST["trash"]) && isset($_REQUEST["trash"]) == 'yes'){
+        $qry_h="UPDATE news_type SET trash='yes' WHERE nid=".$_REQUEST["ntype_id"];
+        if(mysqli_query($con, $qry_h)){
+            ?><script>alert('News_type is moved to trash!!');
+                        window.location.href="Edit_news_type.php";
+            </script><?php
+        }
     }
-}
 ?>
 <!DOCTYPE html>
 <html>
     <head>        
-    <title></title>    
+        <title>News type</title>
+        
         <meta charset="utf-8">
-                <link rel="icon" href="images/bulb_logo.png"/>
+        
+        <link rel="icon" href="images/bulb_logo.png"/>
+        
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        
         <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+        
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <script src="../script.js"></script>
+        
           <script type="text/javascript">
              function confirmDelete(link)
              {

@@ -1,6 +1,6 @@
 <?php session_start();
-ini_set('error_reporting', 0);
-ini_set('display_errors', 0);
+    ini_set('error_reporting', 0);
+    ini_set('display_errors', 0);
 
 if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]) && isset($_SESSION["admin_type"]))
 {
@@ -10,29 +10,27 @@ if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]) && isset($_S
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Admin Home Page</title>        
+        
+        <title>Admin Home Page</title>       
+        
         <link rel="icon" href="images/bulb_logo.png"/>
+        
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        
         <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+        
         <link rel="stylesheet" href="../style.css" type="text/css"/>
-        <!-- Latest compiled and minified CSS -->
+        
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-        <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-        <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <style>
-        </style>
+        
+        <script src="script.js"></script>
     </head>
     <body>
         <?php include 'header.php'; ?>
-<!--<div class="" style="">
-    <div class="jumbotron" style="background-color: #3A3A3A;color: #fff;">
-        <h2 class="text-center" style="font-size: 50px;">Dashboard</h2>
-    </div>
-</div>-->
         <div class="wrapper row3 center"  style="margin-top: 50px;margin-bottom: 50px;">
         <main class="hoc container clear"> 
           <!-- main body -->

@@ -1,76 +1,85 @@
 <?php session_start();
-ini_set('error_reporting', 0);
-ini_set('display_errors', 0);
+    ini_set('error_reporting', 0);
+    ini_set('display_errors', 0);
+    include './gecdp.php';
+    
 if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
 {
-include './gecdp.php';
-if(isset($_REQUEST["btnsave"])){
-    $branch= htmlspecialchars($_REQUEST["txtbranch"],ENT_QUOTES);
-    
-    //echo $branch;
-    $qry_d="INSERT INTO branch (bname) VALUES ('".$branch."')";
-    if(mysqli_query($con, $qry_d)){
-        ?>
-        <script>
-            alert("New branch is added successfully!!");
-            window.location.href="Edit_branch.php";
-        </script>
-        <?php
-    }else{
-        ?>
-        <script>
-            var str="<?php echo mysqli_error($con); ?>";  
-            var res=str.replace(/'/g,"");
-            alert(res);
-        </script>
+    if(isset($_REQUEST["btnsave"])){
+        $branch= htmlspecialchars($_REQUEST["txtbranch"],ENT_QUOTES);
+
+        //echo $branch;
+        $qry_d="INSERT INTO branch (bname) VALUES ('".$branch."')";
+        if(mysqli_query($con, $qry_d)){
+            ?>
+            <script>
+                alert("New branch is added successfully!!");
+                window.location.href="Edit_branch.php";
+            </script>
             <?php
-    }
-}
-if(isset($_REQUEST["branch_id"])&& isset($_REQUEST["false"])=='false'){
-    //echo $_REQUEST["branch_id"];
-    $qry_b="DELETE FROM branch WHERE bid=".$_REQUEST["branch_id"];
-    if(mysqli_query($con, $qry_b))
-    {
-        ?>
-        <script>
-            alert("Branch is removed successfully!!");
-            window.location.href="Edit_branch.php";
-        </script>
-        <?php
-    }else{
-    ?>
-        <script>
-            var str="<?php echo mysqli_error($con); ?>";  
-            var res=str.replace(/'/g,"");
-            alert(res);
-        </script>
+        }else{
+            ?>
+            <script>
+                var str="<?php echo mysqli_error($con); ?>";  
+                var res=str.replace(/'/g,"");
+                alert(res);
+            </script>
             <?php
+        }
     }
-}
-if(isset($_REQUEST["branch_id"]) && isset($_REQUEST["trash"]) && isset($_REQUEST["trash"])=='yes'){
-    $qry_h="UPDATE branch SET trash='yes' WHERE bid=".$_REQUEST["branch_id"];
-        //echo $qry_h;
-    if(mysqli_query($con, $qry_h)){
-        //echo "vikash";
-        ?><script>alert('Moved to trash!!');
-                    window.location.href="Edit_branch.php";
-        </script><?php
-    }else{
-        ?><script>alert('Currently there is a problem to delete the news please try again after some time!!');</script><?php
+    if(isset($_REQUEST["branch_id"])&& isset($_REQUEST["false"])=='false'){
+        //echo $_REQUEST["branch_id"];
+        $qry_b="DELETE FROM branch WHERE bid=".$_REQUEST["branch_id"];
+        if(mysqli_query($con, $qry_b))
+        {
+            ?>
+            <script>
+                alert("Branch is removed successfully!!");
+                window.location.href="Edit_branch.php";
+            </script>
+            <?php
+        }else{
+        ?>
+            <script>
+                var str="<?php echo mysqli_error($con); ?>";  
+                var res=str.replace(/'/g,"");
+                alert(res);
+            </script>
+                <?php
+        }
     }
-}
+    if(isset($_REQUEST["branch_id"]) && isset($_REQUEST["trash"]) && isset($_REQUEST["trash"])=='yes'){
+        $qry_h="UPDATE branch SET trash='yes' WHERE bid=".$_REQUEST["branch_id"];
+        if(mysqli_query($con, $qry_h)){
+            ?><script>alert('Moved to trash!!');
+                        window.location.href="Edit_branch.php";
+            </script><?php
+        }else{
+            ?><script>alert('Currently there is a problem to delete the news please try again after some time!!');</script><?php
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html>
     <head>        
-    <title></title>    
+        <title>Edit branch</title>   
+        
         <meta charset="utf-8">
-                <link rel="icon" href="images/bulb_logo.png"/>
+        
+        <link rel="icon" href="images/bulb_logo.png"/>
+        
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        
         <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
+        
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <script src="../script.js"></script>
+        
           <script type="text/javascript">
              function confirmDelete(link)
              {
