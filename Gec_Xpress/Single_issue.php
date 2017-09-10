@@ -62,22 +62,22 @@ else if(isset($_SESSION["userid"]) && isset($_SESSION["password"]))
                
             <div class="progress">
             <?php switch ($row["issue_status"]) {
-                    case 'Open':
+                    case 'OPEN':
                         echo"<div class='progress-bar progress-bar-striped active' style='width:15%'>Issue is Open</div>";
                         break;
-                    case 'Inprocess':
-                        echo "<div class='progress-bar progress-bar-info progress-bar-striped active' style='width:32%'>Issue is Inprocess</div>";
+                    case 'ASSINGED':
+                        echo "<div class='progress-bar progress-bar-info progress-bar-striped active' style='width:32%'>Issue is Assinged</div>";
                         break;
-                    case 'Closed':
+                    case 'CLOSED':
                         echo "<div class='progress-bar progress-bar-danger progress-bar-striped' style='width:49%'>Issue is Closed</div>";
                         break;
-                    case 'Respond':
-                        echo "<div class='progress-bar progress-bar-success progress-bar-striped active' style='width:66%'>Issue is Respond</div>";
+                    case 'SOLVED':
+                        echo "<div class='progress-bar progress-bar-success progress-bar-striped active' style='width:66%'>Issue is Solved please check and reply</div>";
                         break;
-                    case 'Resolve':
+                    case 'NOT SATISFIED':
                         echo "<div class='progress-bar progress-bar-warning progress-bar-striped active' style='width:83%'>Issue has to Resolve</div>";
                         break;
-                    case 'Solved':
+                    case 'VERIFIED AND COLSED':
                         echo "<div class='progress-bar progress-bar-success progress-bar-striped' style='width:100%'>Issue is now Solved</div>";
                         break;
                     default:
@@ -92,7 +92,7 @@ else if(isset($_SESSION["userid"]) && isset($_SESSION["password"]))
           <!-- main body -->
           <div class="group center" style="">
               <div>
-                  <?php if($row["issue_status"] == 'Solved' && $_SESSION["admin_name"]){ ?>
+                  <?php if($row["issue_status"] == 'VERIFIED AND COLSED' && $_SESSION["admin_name"]){ ?>
               <a href="Issue_view.php?status=delete && issue_id=<?php echo $row["issue_id"]; ?>" onClick='return confirmDelete(this);' style="color:#000;text-decoration: none;" title="Delete the news" >
               
             <article class="one_half first"><i class="icon fa fa-trash-o"></i>
@@ -100,7 +100,7 @@ else if(isset($_SESSION["userid"]) && isset($_SESSION["password"]))
             </article>
               </a>
                   <?php }else{ ?>
-                  <a href="Issue_view.php?status=delete && issue_id=<?php echo $row["issue_id"]; ?>" style="color:#000;" title="Delete the issue" >
+                  <a href="#" style="color:#000;cursor: not-allowed;" title="Delete the issue" >
               
             <article class="one_half first"><i class="icon fa fa-trash-o"></i>
               
@@ -126,7 +126,7 @@ else if(isset($_SESSION["userid"]) && isset($_SESSION["password"]))
                 <div class="col-md-8">
             <div class="text-center">
                 <center>
-                    <img src="Issuephoto//<?php echo $row["related_photo"] ?>" class="img-responsive"/>
+                    <img src="Issuephoto//<?php echo $row["related_photo"] ?>" class="img-responsive"  style="max-height: 350px;"/>
                 </center>
             </div>
                     <div class="form-group" style="margin-top: 30px;"><h2 style="font-size: 50px;font-family:Angsana New;color: #4C4C4C;"><?php echo $row["issue_title"] ?></h2></div>

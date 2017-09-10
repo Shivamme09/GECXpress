@@ -27,7 +27,7 @@ if((isset($_SESSION["userid"]) && isset($_SESSION["password"]))|| (isset($_SESSI
     if(mysqli_query($con, $qry_h)){
         //echo "vikash";
         ?><script>alert('News is moved to trash!!');
-                    window.location.href="Issue_view.php";
+                    window.location.href="Issue_view.php?trash='yes'";
         </script><?php
     }
     }
