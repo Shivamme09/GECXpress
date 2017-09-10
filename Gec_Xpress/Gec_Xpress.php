@@ -59,7 +59,7 @@ include './Slider.php';
                         </article>                        
                     </a>
                     
-                    <a href="commingsoon/index.html"  style="color:#000;text-decoration: none;">
+                    <a href="departments.php"  style="color:#000;text-decoration: none;">
                         <article class="one_quarter"><i class="icon fa fa-map-signs"></i>
                             <h4 class="font-x1 uppercase"><p style="color:#E84C3D;text-decoration:none;font-size:17px;font-family: Georgia,'Times New Roman', 'Times, serif';">Department</p></h4>
                             <p style="font-size:15px;text-align:justify;text-align-last:center;">Get to know your department and various activities involving your department.</p>
@@ -117,15 +117,10 @@ include './Slider.php';
 			</div>
 			<div class="col-md-4">
 				<div class="thumbnail">
-                                    <a href="https://www.sciencedaily.com/news/computers_math/artificial_intelligence/" target="_blank" style="text-decoration: none;">
+                                    <a href="https://techcrunch.com/" target="_blank" style="text-decoration: none;">
                                         <img alt="" src="images/tech.png" style="height: 300px;" class="img-responsive"/>
                                         <div class="caption">
 						<h3 style="text-align: center;color: #757575;">Technology<hr></h3>
-<!--                                            <p style="font-size: 15px;"><span class="fa fa-comments" style="font-size: 20px;padding-left: 10px;"></span><span style="padding-left: 10px;">Computer that reads body language</span></p>
-                                            <p style="font-size: 15px;"><span class="fa fa-comments" style="font-size: 20px;padding-left: 10px;"></span><span style="padding-left: 10px;">Tracking humans in 3D with</span></p>
-                                            <p style="font-size: 15px;"><span class="fa fa-comments" style="font-size: 20px;padding-left: 10px;"></span><span style="padding-left: 10px;">Creating animated characters</span></p>
-                                            <p style="font-size: 15px;"><span class="fa fa-comments" style="font-size: 20px;padding-left: 10px;"></span><span style="padding-left: 10px;">Android apps can conspire to</span></p>
-                                            <p style="font-size: 15px;"><span class="fa fa-comments" style="font-size: 20px;padding-left: 10px;"></span><span style="padding-left: 10px;">First battery-free cellphone</span></p>-->
                                                 <?php include './News_API.php'; ?>
                                             <hr><p style="text-align: center;color:#E84C3D;font-size: 16px;">More....</p>
 					</div>
@@ -138,12 +133,12 @@ include './Slider.php';
 <!--    row and column section ends-->
     
 <!--    Quote start-->
-<div class="container">
+<!--<div class="container">
     <div class="alert" style="border:1px solid #E2E0E2;">
         <strong><p style="font-size: 25px;font-family: Gabriola;color:#9B9B9B;">Quote of the day:</p></strong><p style="font-family:Gabriola;font-size: 25px;color:#B0B0B0;">"The sky has never been the limit. We are our own limits. It’s then about breaking our personal limits and outgrowing ourselves to live our best lives."</p>
         <p style="text-align: right;font-family:Gabriola;font-size: 25px;color:#B0B0B0;padding-right:60px; ">-Bill Copeland</p>
     </div>
-</div>
+</div>-->
 <!--Quote Ends-->
 <?php include './footer.php'; ?>
 </body>
