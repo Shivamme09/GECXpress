@@ -33,7 +33,7 @@ if((isset($_SESSION["userid"]) && isset($_SESSION["password"]))|| (isset($_SESSI
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>Issue</title>
                 <link rel="icon" href="images/bulb_logo.png"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <link rel="stylesheet" href="style.css"/>
