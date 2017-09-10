@@ -55,7 +55,7 @@ if(isset($_SESSION["userid"]) && $_SESSION["password"])
              
             </article>
               </a>
-              <a href="commingsoon/index.html" style="color:#000;text-decoration: none;">
+              <a href="departments.php" style="color:#000;text-decoration: none;">
               <article class="one_quarter"><i class="icon fa fa-map-signs"></i>
                 <h4 class="font-x1 uppercase"><p style="color:#E84C3D;text-decoration:none;font-size:17px;font-family: Georgia,'Times New Roman', 'Times, serif';">Department</p></h4>
              
@@ -78,7 +78,7 @@ if(isset($_SESSION["userid"]) && $_SESSION["password"])
             $result=mysqli_query($con,$qry);
             $row=mysqli_fetch_array($result);
             //echo $row["branch"];
-            $qry_s="SELECT * FROM news WHERE dept_name LIKE '%".$row["branch"]."%'";
+            $qry_s="SELECT * FROM news WHERE (dept_name LIKE '%".$row["branch"]."%' OR dept_name LIKE '%For all%') AND trash!='yes'";
             //echo $qry_s;
             $result_s=mysqli_query($con,$qry_s);
             while($row_s=mysqli_fetch_array($result_s))
@@ -87,7 +87,7 @@ if(isset($_SESSION["userid"]) && $_SESSION["password"])
                 <div class="container" style="margin-bottom: 50px;">
                     <a href="Single_news.php?news_id=<?php echo $row_s["news_id"] ?>" style="text-decoration: none;">
                         <div class="row" style="border:1px solid #AEADAE;">
-                            <div class="col-md-3" style="padding: 0px;"><img style="min-height: 180px;" src="News/<?php echo $row_s["related_photo"]?>" alt="News related pic"class="img-responsive"/></div>
+                            <div class="col-md-3" style="padding: 0px;"><img style="min-height: 180px;max-height: 180px;" src="News/<?php echo $row_s["related_photo"]?>" alt="News related pic"class="img-responsive"/></div>
                             <div class="col-md-9" style="padding-top: 30px;padding-bottom: 30px;font-size: 40px;"><?php echo $row_s["news_title"] ?></div>
                         </div>
                         <div class="row" style="border:1px solid #AEADAE;padding: 15px;border-top:0px;">
