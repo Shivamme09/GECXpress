@@ -21,11 +21,17 @@ if(htmlspecialchars($_REQUEST["status"],ENT_QUOTES) && htmlspecialchars($_REQUES
     $qry_h="UPDATE news SET trash='yes' WHERE news_id=".htmlspecialchars($_REQUEST["news_id"],ENT_QUOTES);
     echo filter_input(INPUT_POST, "news_id");
     if(mysqli_query($con, $qry_h)){
-        ?><script>alert('News is moved to trash!!');
-                    window.location.href="News_view.php";
-        </script><?php
+        ?>
+            <script>alert('News is moved to trash!!');
+                        window.location.href="News_view.php";
+            </script>
+        <?php
     }else{
-        ?><script>alert('Currently there is a problem to delete the news please try again after some time!!');</script><?php
+        ?>
+            <script>
+                alert('Currently there is a problem to delete the news please try again after some time!!');
+            </script>
+        <?php
     }
 }
 
@@ -102,7 +108,6 @@ if(htmlspecialchars($_REQUEST["status"],ENT_QUOTES) && htmlspecialchars($_REQUES
                                   <label>End Date:</label>
                                   <input type="date" class="form-control" id="pwd" placeholder="Enter Description" name="txtend" required pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}">
                                 </div>
-                                
                                 <input type="submit" class="btn btn-primary" name="btndate"/>
                             </form>
                         </p>
