@@ -2,7 +2,6 @@
         ini_set('error_reporting', 0);
         ini_set('display_errors', 0);
         include './gecdp.php';
- include './header.php';
 if(isset($_REQUEST["btnsubmit2"]))
 {
     $pass= htmlspecialchars($_REQUEST["txtpass"],ENT_QUOTES);
@@ -61,7 +60,7 @@ else if(isset($_REQUEST["btnsubmit"]))
         ?>
 <html>
     <head>
-        <title></title>
+        <title>Reset Password</title>
         <link rel="icon" href="images/bulb_logo.png"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -69,6 +68,8 @@ else if(isset($_REQUEST["btnsubmit"]))
         <script src="script.js"></script>
     </head>
     <body>
+        <?php
+include './header.php'; ?>
         <div class="container" style="padding-bottom: 150px;padding-top: 150px;">
             <form method="Post" enctype="multipart/form-data">
                 <div class="form-group">
@@ -105,14 +106,15 @@ else
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>Reset password</title>
+        <link rel="icon" href="images/bulb_logo.png"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="script.js"></script>
     </head>
     <body>
-        <?php // include './header.php'; ?>
+        <?php  include './header.php'; ?>
         <div class="container" style="padding-top: 100px;padding-bottom: 100px;">
             <form method="POST" enctype="multipart/form-data">
                 <div class="form-group">
