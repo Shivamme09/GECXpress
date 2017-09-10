@@ -2,7 +2,7 @@
         ini_set('error_reporting', 0);
         ini_set('display_errors', 0);
         include './gecdp.php';
-        
+if(isset($_REQUEST["issue_id"])){       
 if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
 {
     if(isset($_REQUEST["issue_id"]))
@@ -160,4 +160,8 @@ else if(isset($_SESSION["userid"]) && isset($_SESSION["password"]))
         </div>
     </body>
 </html>
-<?php include './footer.php'; ?>
+<?php include './footer.php';
+}else{
+    header("location:Issue_view.php");
+}
+?>
