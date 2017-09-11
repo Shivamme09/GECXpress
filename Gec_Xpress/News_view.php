@@ -37,18 +37,34 @@ if(htmlspecialchars($_REQUEST["status"],ENT_QUOTES) && htmlspecialchars($_REQUES
 
     if(htmlspecialchars($_REQUEST["btndate"],ENT_QUOTES))
     {
-        $start= htmlspecialchars($_REQUEST["txtstart"],ENT_QUOTES);
-        $end= htmlspecialchars($_REQUEST["txtend"],ENT_QUOTES);
-        $qry_s = "SELECT * FROM news WHERE date(added_on) between '" . $start . "' AND '".$end."' AND trash!='yes'";
+        if(isset ($_REQUEST["trash"]) && isset ($_REQUEST["trash"])=='yes'){
+            $start= htmlspecialchars($_REQUEST["txtstart"],ENT_QUOTES);
+            $end= htmlspecialchars($_REQUEST["txtend"],ENT_QUOTES);
+            $qry_s = "SELECT * FROM news WHERE date(added_on) between '" . $start . "' AND '".$end."' AND trash='yes'";
+        }else{            
+            $start= htmlspecialchars($_REQUEST["txtstart"],ENT_QUOTES);
+            $end= htmlspecialchars($_REQUEST["txtend"],ENT_QUOTES);
+            $qry_s = "SELECT * FROM news WHERE date(added_on) between '" . $start . "' AND '".$end."' AND trash!='yes'";
+        }
     }
     elseif(htmlspecialchars ($_REQUEST["btntype"]))
     {
-        $type= htmlspecialchars($_REQUEST["txttype"],ENT_QUOTES);
-        $qry_s="SELECT * FROM news WHERE news_type='".$type."' AND trash!='yes' ";
+        if(isset ($_REQUEST["trash"]) && isset ($_REQUEST["trash"])=='yes'){
+            $type= htmlspecialchars($_REQUEST["txttype"],ENT_QUOTES);
+            $qry_s="SELECT * FROM news WHERE news_type='".$type."' AND trash='yes' ";
+        }else{            
+            $type= htmlspecialchars($_REQUEST["txttype"],ENT_QUOTES);
+            $qry_s="SELECT * FROM news WHERE news_type='".$type."' AND trash!='yes' ";
+        }
     }
     elseif (htmlspecialchars ($_REQUEST["btndept"])) {
-        $dept= htmlspecialchars($_REQUEST["txtdept"],ENT_QUOTES);
-        $qry_s="SELECT * FROM news WHERE (dept_name LIKE '%".$dept."%' OR dept_name LIKE '%For all%') AND trash!='yes' ORDER BY added_on DESC ";
+        if(isset ($_REQUEST["trash"]) && isset ($_REQUEST["trash"])=='yes'){
+            $dept= htmlspecialchars($_REQUEST["txtdept"],ENT_QUOTES);
+            $qry_s="SELECT * FROM news WHERE (dept_name LIKE '%".$dept."%' OR dept_name LIKE '%For all%') AND trash='yes' ORDER BY added_on DESC ";
+        }else{
+            $dept= htmlspecialchars($_REQUEST["txtdept"],ENT_QUOTES);
+            $qry_s="SELECT * FROM news WHERE (dept_name LIKE '%".$dept."%' OR dept_name LIKE '%For all%') AND trash!='yes' ORDER BY added_on DESC ";            
+        }
     }elseif(isset ($_REQUEST["trash"]) && isset ($_REQUEST["trash"])=='yes'){
         $qry_s="SELECT * FROM news WHERE trash='yes' ORDER BY added_on";
     }
@@ -109,6 +125,11 @@ if(htmlspecialchars($_REQUEST["status"],ENT_QUOTES) && htmlspecialchars($_REQUES
                                   <input type="date" class="form-control" id="pwd" placeholder="Enter Description" name="txtend" required pattern="(0[1-9]|1[0-9]|2[0-9]|3[01]).(0[1-9]|1[012]).[0-9]{4}">
                                 </div>
                                 <input type="submit" class="btn btn-primary" name="btndate"/>
+                    <?php if(isset ($_REQUEST["trash"]) && isset ($_REQUEST["trash"])=='yes'){
+                        ?>
+                            <input type="hidden" name="trash" value="yes"/>
+                            <?php
+                            }?>
                             </form>
                         </p>
                     </div>
@@ -146,6 +167,11 @@ if(htmlspecialchars($_REQUEST["status"],ENT_QUOTES) && htmlspecialchars($_REQUES
                         echo "<option value='".$row_t["ntype"]."'>".$row_t["ntype"]."</option>";
                     }
                     echo"</select>";
+                    if(isset ($_REQUEST["trash"]) && isset ($_REQUEST["trash"])=='yes'){
+                        ?>
+                <input type="hidden" name="trash" value="yes"/>
+                            <?php
+                    }
                 ?>                
               </div>
                 <input type="submit" class="btn btn-primary" name="btntype"/>
@@ -187,6 +213,11 @@ if(htmlspecialchars($_REQUEST["status"],ENT_QUOTES) && htmlspecialchars($_REQUES
                 ?> 
                 
               </div>
+                  <?php   if(isset ($_REQUEST["trash"]) && isset ($_REQUEST["trash"])=='yes'){
+                        ?>
+                <input type="hidden" name="trash" value="yes"/>
+                            <?php
+                    }?>
                 <input type="submit" class="btn btn-primary" name="btndept"/>
             </form></p>
                   </div>
