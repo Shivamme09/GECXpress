@@ -44,6 +44,7 @@ echo "<table width=100% border=1>
 <td width=70>ID</td>
 
 <td width=130>NAME</td>
+<td width=130>Position</td>
 <td width=100>DEPARTMENT</td>
 <td width=120>QUALIFICATION</td>
 <td width=80>IMAGE</td>
@@ -65,6 +66,7 @@ while($row= mysqli_fetch_array($result))
       }
    echo"<td>".$row["fid"]."</td>"; 
     echo"<td>".$row["fname"]."</td>"; 
+    echo"<td>".$row["type"]."</td>"; 
      echo"<td>".$row["department"]."</td>"; 
       echo"<td>".$row["qualification"]."</td>"; 
       ?>
