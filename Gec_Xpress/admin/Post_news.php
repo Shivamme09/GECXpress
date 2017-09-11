@@ -178,7 +178,7 @@ if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
                     ?>
                 </div>
                 <div class="form-group">
-                    <label class="lable-control">Select the branch who see the branch</label><br>
+                    <label class="lable-control">Select the branch who see the news</label><br>
                     <?php
                     if(isset($_REQUEST["status"])&&$_REQUEST["status"]=='update'&&isset($_REQUEST["news_id"]))
                     {                        
@@ -193,8 +193,8 @@ if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
                 
                             echo "<br>";
                         }
-                    }
                     echo "<h4 style='color:#336699;'>If you want to choose new branch select here:</h4>";
+                    }
                         $qry_b="SELECT * FROM branch ORDER BY bid";
                         $result_b=mysqli_query($con,$qry_b);
                         while($row_b=mysqli_fetch_array($result_b))
@@ -204,6 +204,7 @@ if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]))
                             echo "<br>";
                         }
                         ?>
+                    
                 </div>
                 <div class="form-group">
                     <label class="lable-control">Related link (if available)</label>
