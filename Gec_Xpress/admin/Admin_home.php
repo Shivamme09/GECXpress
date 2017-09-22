@@ -65,7 +65,7 @@ if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]) && isset($_S
               
             </article>
               </a>
-              <a href="view_admin.php?admin_type=Faculty" style="color:#000;text-decoration: none;">
+              <a href="faculty_detail.php" style="color:#000;text-decoration: none;">
               <article class="one_third mar_bot"><i class="icon fa fa-users"></i>
               <h4 class="font-x1 uppercase"><p style="color:#E84C3D;text-decoration:none;font-size:17px;font-family: Georgia,'Times New Roman', 'Times, serif';">View Faculty</p></h4>
               
@@ -92,7 +92,7 @@ if(isset($_SESSION["admin_name"]) && isset($_SESSION["admin_pass"]) && isset($_S
             </article>
               </a>
               <?php if($_SESSION["admin_type"]=='Principal' OR $_SESSION["admin_type"]=='HOD'){ ?>
-              <a href="../commingsoon/index.html" style="color:#000;text-decoration: none;">
+              <a href="faculty_register.php" style="color:#000;text-decoration: none;">
             <article class="one_third first mar_bot"><i class="icon fa fa-users"></i>
               <h4 class="font-x1 uppercase"><p style="color:#E84C3D;text-decoration:none;font-size:17px;font-family: Georgia,'Times New Roman', 'Times, serif';">Register Faculty</p></h4>
              

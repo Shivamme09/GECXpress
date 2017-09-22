@@ -16,7 +16,11 @@
                 $_SESSION["admin_name"]=$name;
                 $_SESSION["admin_pass"]=$pass;
                 $_SESSION["admin_type"]=$atype;
-                header("Location:Admin_home.php");
+                if($_SESSION["admin_type"]=='Principal' OR $_SESSION["admin_type"]=='HOD'){
+                    header("Location:dual_mode.php");
+                }else{
+                    header("Location:Admin_home.php");
+                }
              
          }
     else

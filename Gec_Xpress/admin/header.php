@@ -10,26 +10,11 @@
         <meta name="viewport" content="width=device-width, intial-scale=1">
         <title></title>
         <link rel="icon" href="images/bulb_logo.png"/>
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style>
-      
-          body {
-              font-family: "Lato", sans-serif;
-          }
-          
-          input:focus:invalid
-          {
-              border-color: #a94442;
-              box-shadow:0 0px 8px #ce8483;
-          }
-          input:required:valid
-          {
-              border-color: #3c763d;
-              box-shadow: 0px 0px 8px #67b168
-          }
-            
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>            
           .sidenav {
               height: 100%;
               width: 0;
@@ -81,6 +66,13 @@
           {
               margin-top: 60px;
           }
+          #hoverme:hover{
+              border-bottom: 2px solid #fff;
+              margin-top: 5px;
+          }
+          #hoverme{
+              font-weight: bold;
+          }
 <!--Custom style ends-->
 
 <!--Custom script starts-->
@@ -104,14 +96,16 @@
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
-                                <li><a href="../Gec_Xpress.php">Home</a></li>
-                                <li><a href="../Our_Team/index.html">Our Team</a></li>
-                                <li><a href="../gallery.php">Gallery</a></li>
-                                <li><a href="../News_view.php">News</a></li>
-                                <li><a href="../Issue_view.php">Issue</a></li>
-                                <li><a href="../Feedback_view.php">Feedback</a></li>
+                                <li id="hoverme"><a href="../Gec_Xpress.php">Home</a></li>
+                                <li id="hoverme"><a href="../Our_Team/index.html">Our Team</a></li>
+                                <!--<li><a href="../gallery.php">Gallery</a></li>-->
+                                <li id="hoverme"><a href="../News_view.php">News</a></li>
+                                <li id="hoverme"><a href="../Issue_view.php">Issue</a></li>
+                                <li id="hoverme"><a href="../Feedback_view.php">Feedback</a></li>
                                 
 			</ul>
+                                                        
+                            <!--<a href="Admin_home.php" class="btn btn-danger navbar-btn" style="">Control Panel</a>;-->
 			<ul class="nav navbar-nav navbar-right">
 <!--				<li><a href="#" data-toggle="modal" data-target="#signupModal"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>-->
                             
@@ -120,7 +114,7 @@
                             {
                                 //echo "<li><a href='Student_profile.php'><span class='glyphicon glyphicon-user'></span> My Profile</a></li>";
                                 ?>
-                                    <li><a href="#" class="dropdown toggle" data-toggle="dropdown">
+                                    <li  id="hoverme"><a href="#" class="dropdown toggle" data-toggle="dropdown">
                                     <?php //echo $_SESSION["userid"];
                                         $qry_v="SELECT * FROM admin WHERE admin_name='".$_SESSION["admin_name"]."'";
                                         //echo $qry_v;
@@ -130,18 +124,20 @@
                                         echo $row_v["admin_name"];
                                     ?>
                                         </a>
-                                            <li><a href="Admin_home.php">Admin Home</a></li>
                                     </li>
+                                    <li id="hoverme"><a href="Admin_home.php">Control Panel</a></li>
+                                    <!--<a href="Admin_home.php" class="btn btn-danger navbar-btn">Control Panel</a>-->
                                 <?php
-                                echo"<li><a href='../Logout.php'>Logout <span class='glyphicon glyphicon-log-out'></span></a></li>";
+                                echo"<li id='hoverme'><a href='../Logout.php'>Logout <span class='glyphicon glyphicon-log-out'></span></a></li>";
                             }
                             else
                             {
-                                echo"<li><a href='Admin_login.php' ><span class='glyphicon glyphicon-log-in'></span> Login</a></li>";
+                                echo"<li id='hoverme'><a href='Admin_login.php' ><span class='glyphicon glyphicon-log-in'></span> Login</a></li>";
                             }
                             ?>			
                                 
 			</ul>
+                            <!--<button class="btn btn-danger navbar-btn">Vikashh</button>-->
 			</div>
 		</div>
 	</nav>

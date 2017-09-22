@@ -94,7 +94,7 @@ if(isset($_SESSION["userid"]) && $_SESSION["password"])
                             <td><?php echo $row["achive"] ?></td>
                         </tr>
                         <tr>
-                            <td colspan="2" class="text-center"><a href="Profile_page.php" class="btn btn-warning" style="padding: 15px;border-radius: 30px;width: 250px;margin-top: 40px;">Edit My Profile</a></td>
+                            <td colspan="2" class="text-center"><a href="student_profile/profile1.php" class="btn btn-warning" style="padding: 15px;border-radius: 30px;width: 250px;margin-top: 40px;">Edit My Profile</a></td>
                         </tr>
                     </tbody>
                 </table>

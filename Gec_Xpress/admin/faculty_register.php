@@ -5,6 +5,7 @@ if(isset($_REQUEST["btnsubmit"]))
     $fname=$_REQUEST["name"];
      $dptid=$_REQUEST["dpt"];
      $qwl=$_REQUEST["txtqwl"];
+     $dpttype=$_REQUEST["dpttype"];
       //$img=$_REQUEST["upfile"];
       $source_file=$_FILES["upfile"]["tmp_name"];
         $target_file="facultyimage/".$_FILES["upfile"]["name"];
@@ -12,16 +13,22 @@ if(isset($_REQUEST["btnsubmit"]))
         {
             $imagename1=$_FILES["upfile"]["name"];
         }
-      $expr=$_REQUEST["expr"];
-      $subject=$_REQUEST["sub"];
-      $rsrch=$_REQUEST["rsrch"];
-  $mobile=$_REQUEST["mob"];
-  $mail=$_REQUEST["mail"];
+        $expr=$_REQUEST["expr"];
+        $subject=$_REQUEST["sub"];
+        $rsrch=$_REQUEST["rsrch"];
+        $mobile=$_REQUEST["mob"];
+        $mail=$_REQUEST["mail"];
+        $pass= md5($fname."@".$mobile);
      // $postedby=$_REQUEST["poster"];
-      $qry_s="INSERT INTO faculty_profile
-                (fname,department,qualification,image,experience,subject,researcharea,email,mobile)
+        $qry_f="INSERT INTO admin
+         (admin_name,admin_pass,admin_email,admin_type)
+         VALUES
+         ('".$fname."','".$pass."','".$mail."','".$dpttype."');";
+        if(mysqli_query($con, $qry_f)){           
+                $qry_s="INSERT INTO faculty_profile
+                (fname,department,qualification,image,experience,subject,researcharea,email,mobile,type)
                 VALUES
-                ('".$fname."','.$dptid.','".$qwl."','".$imagename1."','".$expr."','".$subject."','".$rsrch."','".$mail."','".$mobile."')";
+                ('".$fname."','".$dptid."','".$qwl."','".$imagename1."','".$expr."','".$subject."','".$rsrch."','".$mail."','".$mobile."','".$dpttype."')";
        
        // echo $qry_s;
        $result=mysqli_query($con, $qry_s);
@@ -44,6 +51,13 @@ if(isset($_REQUEST["btnsubmit"]))
             </script>
             <?php
     }
+        }else{
+            ?>
+            <script>
+                alert("Error");
+            </script>    
+        <?php
+        }
 
  }
 ?>

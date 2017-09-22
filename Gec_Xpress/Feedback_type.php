@@ -57,33 +57,6 @@ if(isset($_REQUEST["btnsubmit"]))
 
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <style>
-            .mar_bot
-            {
-                margin-bottom: 50px;
-            }
-          
-          input:focus:invalid
-          {
-              border-color: #a94442;
-              box-shadow:0 0px 6px #ce8483;
-          }
-          input:required:valid
-          {
-              border-color: #3c763d;
-              box-shadow: 0px 0px 6px #67b168
-          }
-                textArea:focus:empty
-                {
-                    border-color: #a94442;
-                    box-shadow:0 0px 8px #ce8483;
-                }
-                textArea:required:valid
-                {
-                    border-color: #3c763d;
-                    box-shadow: 0px 0px 8px #67b168
-                }
-        </style>
     </head>
     <body>
         <?php include './header.php'; ?>
